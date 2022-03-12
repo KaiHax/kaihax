@@ -1,14 +1,15 @@
-import webpackJsonp from "../webpackJsonp";
+import wpRequire from "../wpRequire";
 
-const getModules = () => webpackJsonp();
+const modules = wpRequire.c;
 
 function findAll(filter) {
-  const modules = getModules();
   let found = [];
 
   for (const mod in modules) {
     if (modules.hasOwnProperty(mod)) {
       const module = modules[mod].exports;
+
+      if (module === globalThis) continue;
 
       if (module) {
         if (module.default && module.__esModule && filter(module.default))
@@ -23,6 +24,9 @@ function findAll(filter) {
 }
 
 const webpack = {
+  wpRequire,
+  modules,
+
   find: (filter) => findAll(filter)[0],
   findAll,
 
@@ -35,11 +39,5 @@ const webpack = {
       props.every((p) => Object.keys(m).some((k) => m[k]?.[p] !== undefined))
     ),
 };
-
-Object.defineProperty(webpack, "modules", {
-  configurable: false,
-  enumerable: true,
-  get: getModules,
-})
 
 export default webpack;
