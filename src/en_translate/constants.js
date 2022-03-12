@@ -1,4 +1,4 @@
-import common from "./modules/common";
+import common from "../modules/common";
 
 const overrides = {
   click_refresh: "Click to refresh",
