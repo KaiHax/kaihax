@@ -1,8 +1,9 @@
 import webpackJsonp from "../webpackJsonp";
 
-const modules = webpackJsonp();
+const getModules = () => webpackJsonp();
 
 function findAll(filter) {
+  const modules = getModules();
   let found = [];
 
   for (const mod in modules) {
@@ -22,8 +23,6 @@ function findAll(filter) {
 }
 
 const webpack = {
-  modules,
-
   find: (filter) => findAll(filter)[0],
   findAll,
 
@@ -36,5 +35,11 @@ const webpack = {
       props.every((p) => Object.keys(m).some((k) => m[k]?.[p] !== undefined))
     ),
 };
+
+Object.defineProperty(webpack, "modules", {
+  configurable: false,
+  enumerable: true,
+  get: getModules,
+})
 
 export default webpack;
