@@ -11,7 +11,7 @@ const overrides = {
   ok: "OK",
   cancel: "Cancel",
   home_page: "Home page",
-  friend: "Friend",
+  friend: "Friends",
   add_friend: "Add friend",
   remove_friend: "Remove friend",
   remove_friend_description:
