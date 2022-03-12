@@ -21,7 +21,7 @@ const overrides = {
   requested: "Requested",
   request_to_be_friend: "Send friend request",
   blocked: "Blocked",
-  private_message: "Private message",
+  private_message: "Private messages",
   not_friend: "Uh... No friends yet.",
   not_online_friend: "None of your friends are online, go call them to play!",
   not_pending_friend_requested: "No pending friend requests",
