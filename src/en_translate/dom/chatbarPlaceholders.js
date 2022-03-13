@@ -6,18 +6,22 @@ export default () => {
     CLASS_NAMES.richeditor_placeholders
   )[0];
 
-  if (!placeholder?.firstChild.textContent.startsWith("给"))
-    return;
+  if (!placeholder?.firstChild.textContent.startsWith("给")) return;
 
   placeholder.lastChild.textContent = `Enter to send`;
 
   placeholder.firstChild.dataset.kaihaxenglish = "";
 
-  const channelName = utils.reactFiberWalker(
-    utils.getFiber(placeholder.firstChild),
-    "currentChannelInfo",
+  const fiber = utils.getFiber(placeholder.firstChild);
+
+  const chatInfo = utils.reactFiberWalker(
+    fiber,
+    "currentChat",
     true
-  )?.pendingProps.currentChannelInfo.name;
+  )?.pendingProps;
+
+  const channelName =
+    chatInfo.currentChannelInfo.name ?? chatInfo.currentChat.target_info?.nickname;
 
   placeholder.firstChild.textContent = `Send a message to ${channelName}`;
 };

@@ -2,5 +2,7 @@
   "richeditor_placeholders": "richeditor-placeholders",
   "userlist_grouptitle": "user-list-group-title",
   "msg_time": "msg-time",
-  "scroll_bottom_tips": "scroll-bottom-tips"
+  "scroll_bottom_tips": "scroll-bottom-tips",
+  "message_oneline": "message-oneline",
+  "welcome_tip": "welcome-tip"
 }
