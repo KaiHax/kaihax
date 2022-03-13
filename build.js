@@ -401,6 +401,9 @@
     const online = titles.find((t) => t.innerText.startsWith("\u5728\u7EBF"));
     if (online)
       online.innerText = `Online ${online.innerText.split(" ")[1]}`;
+    const offline = titles.find((t) => t.innerText.startsWith("\u79BB\u7EBF"));
+    if (offline)
+      offline.innerText = `Offline ${offline.innerText.split(" ")[1]}`;
   };
 
   // src/en_translate/dom/MENU_TEXTS.json
