@@ -1,0 +1,43 @@
+name: Build and deploy
+
+on:
+    push:
+        branches: [master]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Prepare environment
+              uses: actions/setup-node@v2
+              with:
+                  node-version: "16"
+
+            - run: npm install --global pnpm
+            
+            - name: Install deps
+              run: pnpm i
+
+            - name: Build KaiHax
+              run: pnpm build
+
+            - name: Copy additional files
+              run: |
+                  # assets
+                  git clone https://github.com/KaiHax/assets .assets
+                  cp .assets/* dist/
+                  rm -rf .assets
+                  # readme
+                  cp README.md dist/
+
+              # Documentation: https://github.com/peaceiris/actions-gh-pages
+            - name: Deploy to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./dist
+                  # Makes it so the md files in the previous step get processed by GitHub Pages
+                  enable_jekyll: true
