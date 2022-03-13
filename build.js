@@ -334,13 +334,31 @@
   var scroll_bottom_tips = "scroll-bottom-tips";
   var message_oneline = "message-oneline";
   var welcome_tip = "welcome-tip";
+  var menu_text = "menu-text";
+  var guild_invite_modal = "guild-invite-modal";
+  var modal_title = "modal-title";
+  var share_tips = "share-tips";
+  var invite_setting = "invite-setting";
+  var app_kaihei_link = "app-kaihei-link";
+  var button_text = "button-text";
+  var search_input = "search-input";
+  var edit_invite_url_modal = "edit-invite-url-modal";
   var CLASS_NAMES_default = {
     richeditor_placeholders,
     userlist_grouptitle,
     msg_time,
     scroll_bottom_tips,
     message_oneline,
-    welcome_tip
+    welcome_tip,
+    menu_text,
+    guild_invite_modal,
+    modal_title,
+    share_tips,
+    invite_setting,
+    app_kaihei_link,
+    button_text,
+    search_input,
+    edit_invite_url_modal
   };
 
   // src/en_translate/dom/chatbarPlaceholders.js
@@ -356,12 +374,67 @@
     placeholder.firstChild.textContent = `Send a message to ${channelName}`;
   };
 
+  // src/en_translate/dom/inviteModal.js
+  var inviteModal_default = () => {
+    const inviteModal = document.getElementsByClassName(CLASS_NAMES_default.guild_invite_modal)[0];
+    if (!inviteModal)
+      return;
+    const inviteModalTitle = inviteModal.getElementsByClassName(CLASS_NAMES_default.modal_title)[0];
+    if (utils_default.startsNotAscii(inviteModalTitle.firstChild.textContent)) {
+      const guildInfo = utils_default.reactFiberWalker(utils_default.getFiber(inviteModal), "guildInfo", true)?.pendingProps.guildInfo;
+      inviteModalTitle.firstChild.textContent = `Invite users to join ${guildInfo.name}`;
+    }
+    inviteModal.getElementsByClassName(CLASS_NAMES_default.share_tips)[0].innerText = "Share this link, your friends can click to join";
+    const inviteSetting = inviteModal.getElementsByClassName(CLASS_NAMES_default.invite_setting)[0];
+    if (inviteSetting.firstChild.childNodes.length === 1) {
+      inviteSetting.firstChild.textContent = "Your invite link will never expire. ";
+    } else {
+      const duration = inviteSetting.firstChild.childNodes[1];
+      duration.textContent = duration.textContent.replaceAll("\u5929", " days").replaceAll("\u5206\u949F", " minutes").replaceAll("1\u4E2A\u5C0F\u65F6", "1 hour").replaceAll("\u4E2A\u5C0F\u65F6", " hours");
+      inviteSetting.firstChild.firstChild.textContent = "Your invite link will expire after ";
+      inviteSetting.firstChild.lastChild.textContent = ".";
+    }
+    inviteSetting.lastChild.innerText = " Edit invite link";
+  };
+
   // src/en_translate/dom/memberListGroup.js
   var memberListGroup_default = () => {
     const titles = Array.from(document.getElementsByClassName(CLASS_NAMES_default.userlist_grouptitle));
     const online = titles.find((t) => t.innerText.startsWith("\u5728\u7EBF"));
     if (online)
       online.innerText = `Online ${online.innerText.split(" ")[1]}`;
+  };
+
+  // src/en_translate/dom/MENU_TEXTS.json
+  var \u670D\u52A1\u5668\u52A9\u529B = "Server Boost";
+  var \u9080\u8BF7\u5176\u4ED6\u4EBA = "Invite People";
+  var \u670D\u52A1\u5668\u8BBE\u7F6E = "Server Settings";
+  var \u521B\u5EFA\u65B0\u9891\u9053 = "Create Channel";
+  var \u521B\u5EFA\u65B0\u5206\u7EC4 = "Create Group";
+  var \u901A\u77E5\u8BBE\u5B9A = "Notification Settings";
+  var \u9690\u79C1\u8BBE\u7F6E = "Privacy Settings";
+  var \u4FEE\u6539\u672C\u670D\u52A1\u5668\u6635\u79F0 = "Change Nickname";
+  var \u9690\u85CF\u514D\u6253\u6270\u9891\u9053 = "Hide Muted";
+  var MENU_TEXTS_default = {
+    \u670D\u52A1\u5668\u52A9\u529B,
+    \u9080\u8BF7\u5176\u4ED6\u4EBA,
+    \u670D\u52A1\u5668\u8BBE\u7F6E,
+    \u521B\u5EFA\u65B0\u9891\u9053,
+    \u521B\u5EFA\u65B0\u5206\u7EC4,
+    \u901A\u77E5\u8BBE\u5B9A,
+    \u9690\u79C1\u8BBE\u7F6E,
+    \u4FEE\u6539\u672C\u670D\u52A1\u5668\u6635\u79F0,
+    \u9690\u85CF\u514D\u6253\u6270\u9891\u9053
+  };
+
+  // src/en_translate/dom/menuText.js
+  var menuText_default = () => {
+    const menuItems = document.getElementsByClassName(CLASS_NAMES_default.menu_text);
+    for (const menuItem of menuItems)
+      if (menuItem.firstElementChild)
+        menuItem.firstElementChild.innerText = MENU_TEXTS_default[menuItem.firstElementChild.innerText] ?? menuItem.firstElementChild.innerText;
+      else
+        menuItem.innerText = MENU_TEXTS_default[menuItem.innerText] ?? menuItem.innerText;
   };
 
   // src/en_translate/dom/messageTime.js
@@ -395,6 +468,14 @@
     bar.lastChild.innerText = "Jump to present";
   };
 
+  // src/en_translate/dom/searchInput.js
+  var searchInput_default = () => {
+    const elems = document.getElementsByClassName(CLASS_NAMES_default.search_input);
+    for (const elem of elems)
+      if (elem.firstChild.placeholder === "\u641C\u7D22")
+        elem.firstChild.placeholder = "Search";
+  };
+
   // src/en_translate/dom/TOOLTIPS.json
   var \u9891\u9053\u514D\u6253\u6270 = "Mute Channel";
   var \u53D6\u6D88\u9891\u9053\u514D\u6253\u6270 = "Unmute Channel";
@@ -413,7 +494,7 @@
   var \u56DE\u590D = "Reply";
   var \u66F4\u591A = "More";
   var \u89E3\u9501\u6A2A\u5E45 = "Unlock banners";
-  var \u521B\u5EFA\u65B0\u9891\u9053 = "New Channel";
+  var \u521B\u5EFA\u65B0\u9891\u90532 = "New Channel";
   var \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053 = "Double click to join";
   var \u521B\u5EFA\u9080\u8BF7 = "Invite people";
   var \u7F16\u8F91\u9891\u9053 = "Edit Channel";
@@ -445,7 +526,7 @@
     \u56DE\u590D,
     \u66F4\u591A,
     \u89E3\u9501\u6A2A\u5E45,
-    \u521B\u5EFA\u65B0\u9891\u9053,
+    \u521B\u5EFA\u65B0\u9891\u9053: \u521B\u5EFA\u65B0\u9891\u90532,
     \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053,
     \u521B\u5EFA\u9080\u8BF7,
     \u7F16\u8F91\u9891\u9053,
@@ -509,6 +590,9 @@
     nowFriends_default();
     welcomeTips_default();
     tooltips_default();
+    menuText_default();
+    inviteModal_default();
+    searchInput_default();
   };
   var dom_default = () => {
     const interval = setInterval(translateElements, 500);
