@@ -264,8 +264,8 @@
     vip_permission: "BUFF Perks",
     vip_description: "BUFF Description",
     add_buff_make_it_more_interesting: "\u7ED9\u804A\u5929\u52A0\u4E2ABUFF\uFF0C\u8BA9\u5F00\u9ED1\u66F4\u6709\u8DA3\u3002",
-    add_buff: "add_buf",
-    kaiheila_vip: "kaiheila_vip (Activate Kaiheila BUFF)",
+    add_buff: "Buy BUFF",
+    kaiheila_vip: "Activate Kaiheila BUFF",
     select_friend: "Choose a friend",
     vip_plan: "BUFF Plan",
     payment_mode: "Payment method:",
@@ -395,6 +395,95 @@
     bar.lastChild.innerText = "Jump to present";
   };
 
+  // src/en_translate/dom/TOOLTIPS.json
+  var \u9891\u9053\u514D\u6253\u6270 = "Mute Channel";
+  var \u53D6\u6D88\u9891\u9053\u514D\u6253\u6270 = "Unmute Channel";
+  var \u7F6E\u9876 = "Pins";
+  var \u7528\u6237\u5217\u8868 = "Member List";
+  var \u641C\u7D22 = "Search";
+  var \u7528\u6237\u8BBE\u7F6E = "User Settings";
+  var \u670D\u52A1\u5668\u521B\u5EFA\u8005 = "Server Owner";
+  var \u4E0A\u4F20 = "Upload";
+  var \u5C55\u5F00\u8F93\u5165\u680F = "Expand Chatbar";
+  var \u8BED\u97F3\u8F93\u5165\u6A21\u5F0F = "Voice Mode";
+  var \u8BED\u97F3\u8BBE\u7F6E = "Voice Settings";
+  var \u8868\u60C5 = "Emojis";
+  var \u6DFB\u52A0\u56DE\u5E94 = "Add Response";
+  var \u7F16\u8F91\u6D88\u606F = "Edit";
+  var \u56DE\u590D = "Reply";
+  var \u66F4\u591A = "More";
+  var \u89E3\u9501\u6A2A\u5E45 = "Unlock banners";
+  var \u521B\u5EFA\u65B0\u9891\u9053 = "New Channel";
+  var \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053 = "Double click to join";
+  var \u521B\u5EFA\u9080\u8BF7 = "Invite people";
+  var \u7F16\u8F91\u9891\u9053 = "Edit Channel";
+  var \u6DFB\u52A0\u670D\u52A1\u5668 = "Add Server";
+  var \u53D1\u73B0\u670D\u52A1\u5668 = "Explore Servers";
+  var \u4E0B\u8F7D\u5BA2\u6237\u7AEF = "Download Apps";
+  var \u6211\u7684\u4E3B\u9875 = "Home";
+  var \u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929 = "Name change allowed every 90 days<br />BUFF users can change name every 10 days";
+  var REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305 = "Next level in $1 boosts";
+  var \u590D\u5236\u7528\u6237\u540D = "Copy Username";
+  var \u590D\u5236\u6210\u529F = "Copied!";
+  var \u5B98\u65B9\u8BA4\u8BC1 = "Verified";
+  var \u5408\u4F5C\u4F19\u4F34 = "Partnered";
+  var TOOLTIPS_default = {
+    \u9891\u9053\u514D\u6253\u6270,
+    \u53D6\u6D88\u9891\u9053\u514D\u6253\u6270,
+    \u7F6E\u9876,
+    \u7528\u6237\u5217\u8868,
+    \u641C\u7D22,
+    \u7528\u6237\u8BBE\u7F6E,
+    \u670D\u52A1\u5668\u521B\u5EFA\u8005,
+    \u4E0A\u4F20,
+    \u5C55\u5F00\u8F93\u5165\u680F,
+    \u8BED\u97F3\u8F93\u5165\u6A21\u5F0F,
+    \u8BED\u97F3\u8BBE\u7F6E,
+    \u8868\u60C5,
+    \u6DFB\u52A0\u56DE\u5E94,
+    \u7F16\u8F91\u6D88\u606F,
+    \u56DE\u590D,
+    \u66F4\u591A,
+    \u89E3\u9501\u6A2A\u5E45,
+    \u521B\u5EFA\u65B0\u9891\u9053,
+    \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053,
+    \u521B\u5EFA\u9080\u8BF7,
+    \u7F16\u8F91\u9891\u9053,
+    \u6DFB\u52A0\u670D\u52A1\u5668,
+    \u53D1\u73B0\u670D\u52A1\u5668,
+    \u4E0B\u8F7D\u5BA2\u6237\u7AEF,
+    \u6211\u7684\u4E3B\u9875,
+    "\u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929<br />BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929": \u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929,
+    "REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700(\\d+)\u4E2A\u52A9\u529B\u5305": REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305,
+    \u590D\u5236\u7528\u6237\u540D,
+    \u590D\u5236\u6210\u529F,
+    \u5B98\u65B9\u8BA4\u8BC1,
+    \u5408\u4F5C\u4F19\u4F34
+  };
+
+  // src/en_translate/dom/tooltips.js
+  var simpleTooltips = {};
+  var regexTooltips = [];
+  for (const key in TOOLTIPS_default) {
+    const replacement = TOOLTIPS_default[key];
+    if (key.startsWith("REGEX_"))
+      regexTooltips.push([new RegExp(key.substr(6), "g"), replacement]);
+    else
+      simpleTooltips[key] = replacement;
+  }
+  var matchTooltip = (tip) => {
+    if (simpleTooltips[tip])
+      return simpleTooltips[tip];
+    for (const [match, replacement] of regexTooltips)
+      if (tip.match(match)?.[0] === tip)
+        return tip.replaceAll(match, replacement);
+  };
+  var tooltips_default = () => {
+    const elems = document.querySelectorAll("[data-tip]");
+    for (const elem of elems)
+      elem.dataset.tip = matchTooltip(elem.dataset.tip) ?? elem.dataset.tip;
+  };
+
   // src/en_translate/dom/welcomeTips.js
   var welcomeTips_default = () => {
     const tip = document.getElementsByClassName(CLASS_NAMES_default.welcome_tip)[0];
@@ -419,6 +508,7 @@
     scrollToBottom_default();
     nowFriends_default();
     welcomeTips_default();
+    tooltips_default();
   };
   var dom_default = () => {
     const interval = setInterval(translateElements, 500);
