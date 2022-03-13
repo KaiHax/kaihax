@@ -339,7 +339,6 @@
   var modal_title = "modal-title";
   var share_tips = "share-tips";
   var invite_setting = "invite-setting";
-  var app_kaihei_link = "app-kaihei-link";
   var button_text = "button-text";
   var search_input = "search-input";
   var edit_invite_url_modal = "edit-invite-url-modal";
@@ -355,7 +354,6 @@
     modal_title,
     share_tips,
     invite_setting,
-    app_kaihei_link,
     button_text,
     search_input,
     edit_invite_url_modal
