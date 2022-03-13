@@ -1,5 +1,6 @@
 import chatbarPlaceholders from "./chatbarPlaceholders";
 import memberListGroup from "./memberListGroup";
+import menuText from "./menuText";
 import messageTime from "./messageTime";
 import nowFriends from "./nowFriends";
 import scrollToBottom from "./scrollToBottom";
@@ -14,6 +15,7 @@ const translateElements = () => {
   nowFriends();
   welcomeTips();
   tooltips();
+  menuText()
 };
 
 export default () => {
