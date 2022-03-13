@@ -1,7 +1,5 @@
 # KaiHax
 
-<iframe src="https://kaiheila.cn/widget?id=7615783363871726&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
-
 The client mod for KaiHeiLa (开黑啦), featuring a full English localisation (WIP)
 
 「开黑啦」 的应用修改，以全英文本地化为特色（工作正在进行中）。

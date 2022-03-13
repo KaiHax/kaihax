@@ -31,7 +31,9 @@ jobs:
                   cp .assets/* dist/
                   rm -rf .assets
                   # readme
-                  cp README.md dist/
+                  echo '<iframe src="https://kaiheila.cn/widget?id=7615783363871726&theme=dark" width="500" height="350" allowtransparency="true" frameborder="0"></iframe>'
+                    > dist/README.md
+                  cat README.md >> dist/README.md
 
               # Documentation: https://github.com/peaceiris/actions-gh-pages
             - name: Deploy to GitHub Pages
