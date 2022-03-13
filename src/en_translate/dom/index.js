@@ -3,6 +3,7 @@ import memberListGroup from "./memberListGroup";
 import messageTime from "./messageTime";
 import nowFriends from "./nowFriends";
 import scrollToBottom from "./scrollToBottom";
+import tooltips from "./tooltips";
 import welcomeTips from "./welcomeTips";
 
 const translateElements = () => {
@@ -12,6 +13,7 @@ const translateElements = () => {
   scrollToBottom();
   nowFriends();
   welcomeTips();
+  tooltips();
 };
 
 export default () => {

@@ -57,11 +57,14 @@ const overrides = {
   buy_vip: "Buy now",
   renewal: "Renew now",
   gift_friend: "Gift to a friend",
-  vip_permission: "BUFF Perks", // header in the settings panel
+  // header in the settings panel
+  vip_permission: "BUFF Perks",
   vip_description: "BUFF Description",
   add_buff_make_it_more_interesting: "给聊天加个BUFF，让开黑更有趣。",
-  add_buff: "add_buf",
-  kaiheila_vip: "kaiheila_vip (Activate Kaiheila BUFF)",
+  // bottom bar button
+  add_buff: "Buy BUFF",
+  kaiheila_vip: "Activate Kaiheila BUFF",
+  // titlebar in dialog
   select_friend: "Choose a friend",
   vip_plan: "BUFF Plan",
   payment_mode: "Payment method:",
@@ -78,8 +81,7 @@ const overrides = {
   gift_user: "Recipient:",
   bill_wrong: "Order incorrect?",
   kindly_reminder: "Gentle reminder",
-  bill_tips:
-    `1. The system will automatically recharge after successful payment, and will automatically recharge within 24 hours if it initially fails. 
+  bill_tips: `1. The system will automatically recharge after successful payment, and will automatically recharge within 24 hours if it initially fails. 
 2. If the net banking duplicate payment or order is cancelled after payment, and the recharge is not successful, the net banking refund will arrive within 15 working days.`,
   bill_list_none: "No billing records",
   cdkey: "Redemption Code",
