@@ -170,10 +170,13 @@
   var observations = /* @__PURE__ */ new Set();
   var observer = new MutationObserver((records) => {
     const changedElems = /* @__PURE__ */ new Set();
+    const changedChildren = /* @__PURE__ */ new Set();
     for (const record of records) {
-      const elem = record.type === "characterData" ? record.target.parentElement : record.target;
-      if (elem)
-        changedElems.add(elem);
+      changedElems.add(record.target);
+      for (const e of record.addedNodes)
+        changedChildren.add(e);
+      for (const e of record.removedNodes)
+        changedChildren.add(e);
     }
     for (const elem of changedElems)
       for (const [sel, cb] of observations)
@@ -183,11 +186,15 @@
   observer.observe(document.getElementById("root"), {
     subtree: true,
     childList: true,
-    characterData: true
+    attributes: true
   });
   var patcher_default = {
     ...esm_exports,
-    observe: (cb, sel) => observations.add([sel, cb]),
+    observe: (sel, cb) => {
+      const entry = [sel, cb];
+      observations.add(entry);
+      return () => observations.delete(entry);
+    },
     unobserve: () => {
       observations.clear();
       observer.disconnect();
@@ -315,7 +322,8 @@
   };
 
   // src/en_translate/dom/CLASS_NAMES.json
-  var richeditor_placeholders = "richeditor-placeholders";
+  var richeditor_placeholders = "editor-placeholder";
+  var userlist_container = "user-list-container";
   var userlist_grouptitle = "user-list-group-title";
   var msg_time = "msg-time";
   var scroll_bottom_tips = "scroll-bottom-tips";
@@ -331,6 +339,7 @@
   var edit_invite_url_modal = "edit-invite-url-modal";
   var CLASS_NAMES_default = {
     richeditor_placeholders,
+    userlist_container,
     userlist_grouptitle,
     msg_time,
     scroll_bottom_tips,
@@ -346,245 +355,45 @@
     edit_invite_url_modal
   };
 
-  // src/en_translate/dom/chatbarPlaceholders.js
-  var chatbarPlaceholders_default = () => {
-    const placeholder = document.getElementsByClassName(CLASS_NAMES_default.richeditor_placeholders)[0];
-    if (!placeholder?.firstChild.textContent.startsWith("\u7ED9"))
+  // src/en_translate/dom/chatbarPlaceholders.ts
+  var chatbarPlaceholders_default = () => patcher_default.observe(`.${CLASS_NAMES_default.richeditor_placeholders}`, (elem) => {
+    if (!elem.textContent?.startsWith("\u7ED9"))
       return;
-    placeholder.lastChild.textContent = `Enter to send`;
-    placeholder.firstChild.dataset.kaihaxenglish = "";
-    const fiber = utils_default.getFiber(placeholder.firstChild);
+    const fiber = utils_default.getFiber(elem);
     const chatInfo = utils_default.reactFiberWalker(fiber, "currentChat", true)?.pendingProps;
     const channelName = chatInfo.currentChannelInfo.name ?? chatInfo.currentChat.target_info?.nickname;
-    placeholder.firstChild.textContent = `Send a message to ${channelName}`;
-  };
+    elem.innerHTML = `Send a message to ${channelName}`;
+  });
 
-  // src/en_translate/dom/inviteModal.js
-  var inviteModal_default = () => {
-    const inviteModal = document.getElementsByClassName(CLASS_NAMES_default.guild_invite_modal)[0];
-    if (!inviteModal)
-      return;
-    const inviteModalTitle = inviteModal.getElementsByClassName(CLASS_NAMES_default.modal_title)[0];
-    if (utils_default.startsNotAscii(inviteModalTitle.firstChild.textContent)) {
-      const guildInfo = utils_default.reactFiberWalker(utils_default.getFiber(inviteModal), "guildInfo", true)?.pendingProps.guildInfo;
-      inviteModalTitle.firstChild.textContent = `Invite users to join ${guildInfo.name}`;
+  // src/en_translate/dom/memberListGroup.ts
+  var memberListGroup_default = () => patcher_default.observe(`.${CLASS_NAMES_default.userlist_container}`, (elem) => {
+    for (const title of elem.getElementsByClassName(CLASS_NAMES_default.userlist_grouptitle))
+      if (title.textContent?.startsWith("\u5728\u7EBF"))
+        title.innerHTML = `Online ${title.textContent.split(" ")[1]}`;
+      else if (title.textContent?.startsWith("\u79BB\u7EBF"))
+        title.innerHTML = `Offline ${title.textContent.split(" ")[1]}`;
+  });
+
+  // src/en_translate/dom/messageTime.ts
+  var messageTime_default = () => patcher_default.observe(`.${CLASS_NAMES_default.msg_time}`, (elem) => {
+    if (elem.textContent?.startsWith("\u4ECA\u5929 \u51CC\u6668"))
+      elem.innerHTML = `Early this morning at ${elem.textContent.split(" ").slice(2)}`;
+    else if (elem.textContent && utils_default.startsNotAscii(elem.textContent)) {
+      const replaced = elem.textContent.replaceAll("\u4E0A\u5348", "morning").replaceAll("\u4E0B\u5348", "afternoon").replaceAll("\u4ECA\u5929", "This").replaceAll("\u6628\u5929", "Yesterday");
+      const part1 = replaced.split(" ").slice(0, -1).join(" ");
+      const part2 = _.last(replaced.split(" "));
+      elem.innerHTML = `${part1} at ${part2}`;
     }
-    inviteModal.getElementsByClassName(CLASS_NAMES_default.share_tips)[0].innerText = "Share this link, your friends can click to join";
-    const inviteSetting = inviteModal.getElementsByClassName(CLASS_NAMES_default.invite_setting)[0];
-    if (inviteSetting.firstChild.childNodes.length === 1) {
-      inviteSetting.firstChild.textContent = "Your invite link will never expire. ";
-    } else {
-      const duration = inviteSetting.firstChild.childNodes[1];
-      duration.textContent = duration.textContent.replaceAll("\u5929", " days").replaceAll("\u5206\u949F", " minutes").replaceAll("1\u4E2A\u5C0F\u65F6", "1 hour").replaceAll("\u4E2A\u5C0F\u65F6", " hours");
-      inviteSetting.firstChild.firstChild.textContent = "Your invite link will expire after ";
-      inviteSetting.firstChild.lastChild.textContent = ".";
-    }
-    inviteSetting.lastChild.innerText = " Edit invite link";
-  };
+  });
 
-  // src/en_translate/dom/memberListGroup.js
-  var memberListGroup_default = () => {
-    const titles = Array.from(document.getElementsByClassName(CLASS_NAMES_default.userlist_grouptitle));
-    const online = titles.find((t) => t.innerText.startsWith("\u5728\u7EBF"));
-    if (online)
-      online.innerText = `Online ${online.innerText.split(" ")[1]}`;
-    const offline = titles.find((t) => t.innerText.startsWith("\u79BB\u7EBF"));
-    if (offline)
-      offline.innerText = `Offline ${offline.innerText.split(" ")[1]}`;
-  };
-
-  // src/en_translate/dom/MENU_TEXTS.json
-  var \u670D\u52A1\u5668\u52A9\u529B = "Server Boost";
-  var \u9080\u8BF7\u5176\u4ED6\u4EBA = "Invite People";
-  var \u670D\u52A1\u5668\u8BBE\u7F6E = "Server Settings";
-  var \u521B\u5EFA\u65B0\u9891\u9053 = "Create Channel";
-  var \u521B\u5EFA\u65B0\u5206\u7EC4 = "Create Group";
-  var \u901A\u77E5\u8BBE\u5B9A = "Notification Settings";
-  var \u9690\u79C1\u8BBE\u7F6E = "Privacy Settings";
-  var \u4FEE\u6539\u672C\u670D\u52A1\u5668\u6635\u79F0 = "Change Nickname";
-  var \u9690\u85CF\u514D\u6253\u6270\u9891\u9053 = "Hide Muted";
-  var MENU_TEXTS_default = {
-    \u670D\u52A1\u5668\u52A9\u529B,
-    \u9080\u8BF7\u5176\u4ED6\u4EBA,
-    \u670D\u52A1\u5668\u8BBE\u7F6E,
-    \u521B\u5EFA\u65B0\u9891\u9053,
-    \u521B\u5EFA\u65B0\u5206\u7EC4,
-    \u901A\u77E5\u8BBE\u5B9A,
-    \u9690\u79C1\u8BBE\u7F6E,
-    \u4FEE\u6539\u672C\u670D\u52A1\u5668\u6635\u79F0,
-    \u9690\u85CF\u514D\u6253\u6270\u9891\u9053
-  };
-
-  // src/en_translate/dom/menuText.js
-  var menuText_default = () => {
-    const menuItems = document.getElementsByClassName(CLASS_NAMES_default.menu_text);
-    for (const menuItem of menuItems)
-      if (menuItem.firstElementChild)
-        menuItem.firstElementChild.innerText = MENU_TEXTS_default[menuItem.firstElementChild.innerText] ?? menuItem.firstElementChild.innerText;
-      else
-        menuItem.innerText = MENU_TEXTS_default[menuItem.innerText] ?? menuItem.innerText;
-  };
-
-  // src/en_translate/dom/messageTime.js
-  var messageTime_default = () => {
-    const messageTimes = document.getElementsByClassName(CLASS_NAMES_default.msg_time);
-    for (const elem of messageTimes) {
-      if (elem.innerText.startsWith("\u4ECA\u5929 \u51CC\u6668"))
-        elem.innerText = `Early this morning at ${elem.innerText.split(" ").slice(2)}`;
-      else if (utils_default.startsNotAscii(elem.innerText)) {
-        const replaced = elem.innerText.replaceAll("\u4E0A\u5348", "morning").replaceAll("\u4E0B\u5348", "afternoon").replaceAll("\u4ECA\u5929", "This").replaceAll("\u6628\u5929", "Yesterday");
-        elem.innerText = replaced.split(" ").slice(0, -1).join(" ") + " at " + _.last(replaced.split(" "));
-      }
-    }
-  };
-
-  // src/en_translate/dom/nowFriends.js
-  var nowFriends_default = () => {
-    const elem = document.getElementsByClassName(CLASS_NAMES_default.message_oneline)[0];
-    if (!elem || !elem.lastChild.innerText.startsWith("\u4F60\u4E0E"))
-      return;
-    const friendName = utils_default.reactFiberWalker(utils_default.getFiber(elem), "currentChat", true)?.pendingProps.currentChat.target_info.nickname;
-    elem.lastChild.innerText = `You and ${friendName} are now friends.`;
-  };
-
-  // src/en_translate/dom/scrollToBottom.js
-  var scrollToBottom_default = () => {
-    const bar = document.getElementsByClassName(CLASS_NAMES_default.scroll_bottom_tips)[0];
-    if (!bar)
-      return;
-    bar.firstChild.innerText = "You're viewing old messages";
-    bar.lastChild.innerText = "Jump to present";
-  };
-
-  // src/en_translate/dom/searchInput.js
-  var searchInput_default = () => {
-    const elems = document.getElementsByClassName(CLASS_NAMES_default.search_input);
-    for (const elem of elems)
-      if (elem.firstChild.placeholder === "\u641C\u7D22")
-        elem.firstChild.placeholder = "Search";
-  };
-
-  // src/en_translate/dom/TOOLTIPS.json
-  var \u9891\u9053\u514D\u6253\u6270 = "Mute Channel";
-  var \u53D6\u6D88\u9891\u9053\u514D\u6253\u6270 = "Unmute Channel";
-  var \u7F6E\u9876 = "Pins";
-  var \u7528\u6237\u5217\u8868 = "Member List";
-  var \u641C\u7D22 = "Search";
-  var \u7528\u6237\u8BBE\u7F6E = "User Settings";
-  var \u670D\u52A1\u5668\u521B\u5EFA\u8005 = "Server Owner";
-  var \u4E0A\u4F20 = "Upload";
-  var \u5C55\u5F00\u8F93\u5165\u680F = "Expand Chatbar";
-  var \u8BED\u97F3\u8F93\u5165\u6A21\u5F0F = "Voice Mode";
-  var \u8BED\u97F3\u8BBE\u7F6E = "Voice Settings";
-  var \u8868\u60C5 = "Emojis";
-  var \u6DFB\u52A0\u56DE\u5E94 = "Add Response";
-  var \u7F16\u8F91\u6D88\u606F = "Edit";
-  var \u56DE\u590D = "Reply";
-  var \u66F4\u591A = "More";
-  var \u89E3\u9501\u6A2A\u5E45 = "Unlock banners";
-  var \u521B\u5EFA\u65B0\u9891\u90532 = "New Channel";
-  var \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053 = "Double click to join";
-  var \u521B\u5EFA\u9080\u8BF7 = "Invite people";
-  var \u7F16\u8F91\u9891\u9053 = "Edit Channel";
-  var \u6DFB\u52A0\u670D\u52A1\u5668 = "Add Server";
-  var \u53D1\u73B0\u670D\u52A1\u5668 = "Explore Servers";
-  var \u4E0B\u8F7D\u5BA2\u6237\u7AEF = "Download Apps";
-  var \u6211\u7684\u4E3B\u9875 = "Home";
-  var \u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929 = "Name change allowed every 90 days<br />BUFF users can change name every 10 days";
-  var REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305 = "Next level in $1 boosts";
-  var \u590D\u5236\u7528\u6237\u540D = "Copy Username";
-  var \u590D\u5236\u6210\u529F = "Copied!";
-  var \u5B98\u65B9\u8BA4\u8BC1 = "Verified";
-  var \u5408\u4F5C\u4F19\u4F34 = "Partnered";
-  var TOOLTIPS_default = {
-    \u9891\u9053\u514D\u6253\u6270,
-    \u53D6\u6D88\u9891\u9053\u514D\u6253\u6270,
-    \u7F6E\u9876,
-    \u7528\u6237\u5217\u8868,
-    \u641C\u7D22,
-    \u7528\u6237\u8BBE\u7F6E,
-    \u670D\u52A1\u5668\u521B\u5EFA\u8005,
-    \u4E0A\u4F20,
-    \u5C55\u5F00\u8F93\u5165\u680F,
-    \u8BED\u97F3\u8F93\u5165\u6A21\u5F0F,
-    \u8BED\u97F3\u8BBE\u7F6E,
-    \u8868\u60C5,
-    \u6DFB\u52A0\u56DE\u5E94,
-    \u7F16\u8F91\u6D88\u606F,
-    \u56DE\u590D,
-    \u66F4\u591A,
-    \u89E3\u9501\u6A2A\u5E45,
-    \u521B\u5EFA\u65B0\u9891\u9053: \u521B\u5EFA\u65B0\u9891\u90532,
-    \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053,
-    \u521B\u5EFA\u9080\u8BF7,
-    \u7F16\u8F91\u9891\u9053,
-    \u6DFB\u52A0\u670D\u52A1\u5668,
-    \u53D1\u73B0\u670D\u52A1\u5668,
-    \u4E0B\u8F7D\u5BA2\u6237\u7AEF,
-    \u6211\u7684\u4E3B\u9875,
-    "\u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929<br />BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929": \u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929,
-    "REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700(\\d+)\u4E2A\u52A9\u529B\u5305": REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305,
-    \u590D\u5236\u7528\u6237\u540D,
-    \u590D\u5236\u6210\u529F,
-    \u5B98\u65B9\u8BA4\u8BC1,
-    \u5408\u4F5C\u4F19\u4F34
-  };
-
-  // src/en_translate/dom/tooltips.js
-  var simpleTooltips = {};
-  var regexTooltips = [];
-  for (const key in TOOLTIPS_default) {
-    const replacement = TOOLTIPS_default[key];
-    if (key.startsWith("REGEX_"))
-      regexTooltips.push([new RegExp(key.substr(6), "g"), replacement]);
-    else
-      simpleTooltips[key] = replacement;
-  }
-  var matchTooltip = (tip) => {
-    if (simpleTooltips[tip])
-      return simpleTooltips[tip];
-    for (const [match, replacement] of regexTooltips)
-      if (tip.match(match)?.[0] === tip)
-        return tip.replaceAll(match, replacement);
-  };
-  var tooltips_default = () => {
-    const elems = document.querySelectorAll("[data-tip]");
-    for (const elem of elems)
-      elem.dataset.tip = matchTooltip(elem.dataset.tip) ?? elem.dataset.tip;
-  };
-
-  // src/en_translate/dom/welcomeTips.js
-  var welcomeTips_default = () => {
-    const tip = document.getElementsByClassName(CLASS_NAMES_default.welcome_tip)[0];
-    if (!tip || !utils_default.startsNotAscii(tip.innerText))
-      return;
-    if (tip.innerText.startsWith("\u8FD9\u91CC\u662F\u4F60\u4E0E")) {
-      const userName = utils_default.reactFiberWalker(utils_default.getFiber(tip), "currentChat", true)?.pendingProps.currentChat.target_info.nickname;
-      tip.innerText = `This is the beginning of your PMs with @${userName}.`;
-    } else if (tip.innerText.startsWith("\u6B22\u8FCE\u6765\u5230")) {
-      tip.firstChild.textContent = "This is the beginning of #";
-      tip.removeChild(tip.childNodes[2]);
-      tip.childNodes[2].textContent = ". ";
-      tip.lastChild.innerText = "You are witnessing history.";
-    }
-  };
-
-  // src/en_translate/dom/index.js
-  var translateElements = () => {
-    chatbarPlaceholders_default();
-    memberListGroup_default();
-    messageTime_default();
-    scrollToBottom_default();
-    nowFriends_default();
-    welcomeTips_default();
-    tooltips_default();
-    menuText_default();
-    inviteModal_default();
-    searchInput_default();
-  };
+  // src/en_translate/dom/index.ts
   var dom_default = () => {
-    const interval = setInterval(translateElements, 500);
-    return () => clearInterval(interval);
+    const unpatches = [
+      chatbarPlaceholders_default(),
+      memberListGroup_default(),
+      messageTime_default()
+    ];
+    return () => unpatches.forEach((p) => p());
   };
 
   // src/en_translate/index.ts
@@ -595,6 +404,7 @@
 
   // src/index.ts
   if (window.kaihax) {
+    console.clear();
     console.log("Kaihax already loaded, uninjecting first");
     kaihax.uninject();
   }
