@@ -23,10 +23,12 @@ window.kaihax = {
     after: patcher.after,
     before: patcher.before,
     instead: patcher.instead,
+    observe: patcher.observe
   },
   utils,
   uninject: () => {
     patcher.unpatchAll();
+    patcher.unobserve();
     untranslate();
     // @ts-expect-error
     delete window.kaihax;
