@@ -1,5 +1,11 @@
 (() => {
-  // src/wpRequire.js
+  var __defProp = Object.defineProperty;
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
+
+  // src/wpRequire.ts
   var wpRequire = window["webpackJsonpkaihei-react"].push([
     [],
     {
@@ -12,7 +18,7 @@
   delete wpRequire.c.get;
   var wpRequire_default = wpRequire;
 
-  // src/modules/webpack.js
+  // src/modules/webpack.ts
   var modules = wpRequire_default.c;
   function findAll(filter) {
     let found = [];
@@ -42,7 +48,7 @@
   };
   var webpack_default = webpack;
 
-  // src/modules/common.js
+  // src/modules/common.ts
   var bothConstants = webpack_default.findByPropsAll("app_name");
   var EN_APP_NAME = "Kaiheila";
   var common_default = {
@@ -52,162 +58,143 @@
     constantsEN: bothConstants.find((c) => c.app_name === EN_APP_NAME)
   };
 
-  // node_modules/.pnpm/simian@1.4.3/node_modules/simian/dist/getOriginal.js
-  var getOriginal = (patchChain) => typeof patchChain.prev === "function" ? patchChain.prev : getOriginal(patchChain.prev);
-  var getOriginal_default = (patcherId, obj, funcName) => {
-    const patchChain = obj[patcherId][funcName];
-    if (patchChain === void 0)
-      return obj[funcName];
-    return getOriginal(patchChain);
-  };
+  // node_modules/.pnpm/spitroast@1.4.2/node_modules/spitroast/dist/esm/index.js
+  var esm_exports = {};
+  __export(esm_exports, {
+    after: () => after,
+    before: () => before,
+    instead: () => instead,
+    unpatchAll: () => unpatchAll
+  });
 
-  // node_modules/.pnpm/simian@1.4.3/node_modules/simian/dist/patchChain.js
-  var PatchChain = class {
-    constructor(id, prev, patch) {
-      this.data = {
-        id,
-        func: (ctx, ...args) => patch(ctx, typeof this.prev === "function" ? this.prev : this.prev.data.func, args)
+  // node_modules/.pnpm/spitroast@1.4.2/node_modules/spitroast/dist/esm/shared.js
+  var patchTypes = ["a", "b", "i"];
+  var patchedObjects = /* @__PURE__ */ new Map();
+
+  // node_modules/.pnpm/spitroast@1.4.2/node_modules/spitroast/dist/esm/hook.js
+  function hook_default(funcName, funcParent, funcArgs, ctxt, isConstruct) {
+    const patch = patchedObjects.get(funcParent)?.[funcName];
+    if (!patch)
+      return isConstruct ? Reflect.construct(funcParent[funcName], funcArgs, ctxt) : funcParent[funcName].apply(ctxt, funcArgs);
+    for (const hook of patch.b.values()) {
+      const maybefuncArgs = hook.call(ctxt, funcArgs);
+      if (Array.isArray(maybefuncArgs))
+        funcArgs = maybefuncArgs;
+    }
+    let insteadPatchedFunc = (...args) => isConstruct ? Reflect.construct(patch.o, args, ctxt) : patch.o.apply(ctxt, args);
+    for (const callback of patch.i.values()) {
+      const oldPatchFunc = insteadPatchedFunc;
+      insteadPatchedFunc = (...args) => callback.call(ctxt, args, oldPatchFunc);
+    }
+    let workingRetVal = insteadPatchedFunc(...funcArgs);
+    for (const hook of patch.a.values())
+      workingRetVal = hook.call(ctxt, funcArgs, workingRetVal) ?? workingRetVal;
+    return workingRetVal;
+  }
+
+  // node_modules/.pnpm/spitroast@1.4.2/node_modules/spitroast/dist/esm/unpatch.js
+  function unpatch(funcParent, funcName, hookId, type) {
+    const patchedObject = patchedObjects.get(funcParent);
+    const patch = patchedObject?.[funcName];
+    if (!patch?.[type].has(hookId))
+      return false;
+    patch[type].delete(hookId);
+    if (patchTypes.every((t) => patch[t].size === 0)) {
+      const success = Reflect.defineProperty(funcParent, funcName, {
+        value: patch.o,
+        writable: true,
+        configurable: true
+      });
+      if (!success)
+        funcParent[funcName] = patch.o;
+      delete patchedObject[funcName];
+    }
+    if (Object.keys(patchedObject).length == 0)
+      patchedObjects.delete(funcParent);
+    return true;
+  }
+  function unpatchAll() {
+    for (const [parentObject, patchedObject] of patchedObjects.entries())
+      for (const funcName in patchedObject)
+        for (const hookType of patchTypes)
+          for (const hookId of patchedObject[funcName]?.[hookType].keys() ?? [])
+            unpatch(parentObject, funcName, hookId, hookType);
+  }
+
+  // node_modules/.pnpm/spitroast@1.4.2/node_modules/spitroast/dist/esm/getPatchFunc.js
+  var getPatchFunc_default = (patchType) => (funcName, funcParent, callback, oneTime = false) => {
+    if (typeof funcParent[funcName] !== "function")
+      throw new Error(`${funcName} is not a function in ${funcParent.constructor.name}`);
+    if (!patchedObjects.has(funcParent))
+      patchedObjects.set(funcParent, {});
+    const parentInjections = patchedObjects.get(funcParent);
+    if (!parentInjections[funcName]) {
+      const origFunc = funcParent[funcName];
+      parentInjections[funcName] = {
+        o: origFunc,
+        b: /* @__PURE__ */ new Map(),
+        i: /* @__PURE__ */ new Map(),
+        a: /* @__PURE__ */ new Map()
       };
-      this.prev = prev;
-    }
-  };
-
-  // node_modules/.pnpm/simian@1.4.3/node_modules/simian/dist/removePatch.js
-  var removePatch_default = (obj, funcName, patchId, patcherId) => {
-    const patchChain = obj[patcherId][funcName];
-    if (patchChain.data.id === patchId) {
-      if (typeof patchChain.prev === "function") {
-        obj[funcName] = patchChain.prev;
-        delete obj[patcherId][funcName];
-        return;
-      }
-      obj[patcherId][funcName] = patchChain.prev;
-      obj[funcName] = patchChain.prev.data.func;
-      return;
-    }
-    const recursiveTransform = (list) => {
-      if (list && typeof list.prev === "object") {
-        list.data = list.prev.data;
-        list.prev = list.prev.prev;
-        return recursiveTransform(list.prev);
-      }
-      return true;
-    };
-    const removeNode = (list) => {
-      if (!list)
-        throw new Error("could not find unpatch");
-      if (typeof list.prev === "object" && list.data.id !== patchId)
-        return removeNode(list.prev);
-      return recursiveTransform(list);
-    };
-    let tmpChain = Object.assign({}, patchChain);
-    removeNode(tmpChain);
-    obj[patcherId][funcName] = tmpChain;
-    obj[funcName] = tmpChain.data.func;
-  };
-
-  // node_modules/.pnpm/simian@1.4.3/node_modules/simian/dist/patcher.js
-  var __classPrivateFieldSet = function(receiver, state, value, kind, f) {
-    if (kind === "m")
-      throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f)
-      throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-      throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-  };
-  var __classPrivateFieldGet = function(receiver, state, kind, f) {
-    if (kind === "a" && !f)
-      throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-      throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-  };
-  var _Patcher_instances;
-  var _Patcher_id;
-  var _Patcher_patched;
-  var _Patcher_patch;
-  var Patcher = class {
-    constructor(embeddedName = "simian") {
-      _Patcher_instances.add(this);
-      _Patcher_id.set(this, void 0);
-      _Patcher_patched.set(this, void 0);
-      __classPrivateFieldSet(this, _Patcher_id, Symbol(embeddedName), "f");
-      __classPrivateFieldSet(this, _Patcher_patched, /* @__PURE__ */ new Set(), "f");
-      this.after = __classPrivateFieldGet(this, _Patcher_instances, "m", _Patcher_patch).call(this, "AFTER");
-      this.before = __classPrivateFieldGet(this, _Patcher_instances, "m", _Patcher_patch).call(this, "BEFORE");
-      this.instead = __classPrivateFieldGet(this, _Patcher_instances, "m", _Patcher_patch).call(this, "INSTEAD");
-    }
-    cleanupAll() {
-      for (const obj of __classPrivateFieldGet(this, _Patcher_patched, "f")) {
-        for (const funcName in obj[__classPrivateFieldGet(this, _Patcher_id, "f")]) {
-          const orig = getOriginal_default(__classPrivateFieldGet(this, _Patcher_id, "f"), obj, funcName);
-          obj[funcName] = orig;
-          obj[__classPrivateFieldGet(this, _Patcher_id, "f")][funcName] = void 0;
-        }
-        obj[__classPrivateFieldGet(this, _Patcher_id, "f")] = void 0;
-        delete obj[__classPrivateFieldGet(this, _Patcher_id, "f")];
-      }
-      __classPrivateFieldGet(this, _Patcher_patched, "f").clear();
-    }
-  };
-  _Patcher_id = /* @__PURE__ */ new WeakMap(), _Patcher_patched = /* @__PURE__ */ new WeakMap(), _Patcher_instances = /* @__PURE__ */ new WeakSet(), _Patcher_patch = function _Patcher_patch2(t) {
-    return (funcName, obj, patch) => {
-      const orig = obj[funcName];
-      if (typeof orig !== "function")
-        throw new Error(`${funcName} is not a function on ${obj}`);
-      const id = Symbol();
-      if (obj[__classPrivateFieldGet(this, _Patcher_id, "f")] === void 0)
-        obj[__classPrivateFieldGet(this, _Patcher_id, "f")] = {};
-      let patchFunction;
-      switch (t) {
-        case "AFTER":
-          patchFunction = (ctx, func, args) => {
-            let ret = func.apply(ctx, args);
-            const newRet = patch.apply(ctx, [args, ret]);
-            if (typeof newRet !== "undefined")
-              ret = newRet;
-            return ret;
-          };
-          break;
-        case "BEFORE":
-          patchFunction = (ctx, func, args) => {
-            var _a;
-            let finalArgs = args;
-            const newArgs = (_a = patch.apply(ctx, [args])) !== null && _a !== void 0 ? _a : args;
-            if (Array.isArray(newArgs))
-              finalArgs = newArgs;
-            return func.apply(ctx, finalArgs);
-          };
-          break;
-        case "INSTEAD":
-          patchFunction = (ctx, func, args) => patch.apply(ctx, [args, func.bind(ctx)]);
-          break;
-        default:
-          break;
-      }
-      let patchChain = obj[__classPrivateFieldGet(this, _Patcher_id, "f")][funcName];
-      if (patchChain === void 0)
-        patchChain = new PatchChain(id, orig, patchFunction);
-      else
-        patchChain = new PatchChain(id, patchChain, patchFunction);
-      obj[__classPrivateFieldGet(this, _Patcher_id, "f")][funcName] = patchChain;
-      obj[funcName] = function() {
-        return patchChain.data.func(this, ...arguments);
+      const runHook = (ctxt, args, construct) => {
+        const ret = hook_default(funcName, funcParent, args, ctxt, construct);
+        if (oneTime)
+          unpatchThisPatch();
+        return ret;
       };
-      Object.assign(obj[funcName], orig);
-      __classPrivateFieldGet(this, _Patcher_patched, "f").add(obj);
-      return () => removePatch_default(obj, funcName, id, __classPrivateFieldGet(this, _Patcher_id, "f"));
-    };
+      const replaceProxy = new Proxy(origFunc, {
+        apply: (_2, ctxt, args) => runHook(ctxt, args, false),
+        construct: (_2, args) => runHook(origFunc, args, true),
+        get: (target, prop, receiver) => prop == "toString" ? origFunc.toString.bind(origFunc) : Reflect.get(target, prop, receiver)
+      });
+      const success = Reflect.defineProperty(funcParent, funcName, {
+        value: replaceProxy,
+        configurable: true,
+        writable: true
+      });
+      if (!success)
+        funcParent[funcName] = replaceProxy;
+    }
+    const hookId = Symbol();
+    const unpatchThisPatch = () => unpatch(funcParent, funcName, hookId, patchType);
+    parentInjections[funcName][patchType].set(hookId, callback);
+    return unpatchThisPatch;
   };
 
-  // node_modules/.pnpm/simian@1.4.3/node_modules/simian/dist/index.js
-  var dist_default = Patcher;
+  // node_modules/.pnpm/spitroast@1.4.2/node_modules/spitroast/dist/esm/index.js
+  var before = getPatchFunc_default("b");
+  var instead = getPatchFunc_default("i");
+  var after = getPatchFunc_default("a");
 
-  // src/patcher.js
-  var patcher_default = new dist_default("Kaihax");
+  // src/patcher.ts
+  var observations = /* @__PURE__ */ new Set();
+  var observer = new MutationObserver((records) => {
+    const changedElems = /* @__PURE__ */ new Set();
+    for (const record of records) {
+      const elem = record.type === "characterData" ? record.target.parentElement : record.target;
+      if (elem)
+        changedElems.add(elem);
+    }
+    for (const elem of changedElems)
+      for (const [sel, cb] of observations)
+        if (elem.matches(sel))
+          cb(elem);
+  });
+  observer.observe(document.getElementById("root"), {
+    subtree: true,
+    childList: true,
+    characterData: true
+  });
+  var patcher_default = {
+    ...esm_exports,
+    observe: (cb, sel) => observations.add([sel, cb]),
+    unobserve: () => {
+      observations.clear();
+      observer.disconnect();
+    }
+  };
 
-  // src/en_translate/constants.js
+  // src/en_translate/constants.ts
   var overrides = {
     click_refresh: "Click to refresh",
     add: "Add",
@@ -296,7 +283,7 @@
     return () => Object.assign(common_default.constantsCN, original);
   };
 
-  // src/utils.js
+  // src/utils.ts
   function reactFiberWalker(node, prop, goUp = false) {
     if (node.pendingProps?.[prop] !== void 0)
       return node;
@@ -318,7 +305,7 @@
     const walk = (node) => typeof node.type === "function" ? node : walk(node.return);
     return walk(getFiber(element)).type;
   };
-  var startsNotAscii = (text) => (text.charCodeAt() & 65408) > 0;
+  var startsNotAscii = (text) => (text.charCodeAt(0) & 65408) > 0;
   var utils_default = {
     reactFiberWalker,
     getFiber,
@@ -600,13 +587,13 @@
     return () => clearInterval(interval);
   };
 
-  // src/en_translate/index.js
+  // src/en_translate/index.ts
   var en_translate_default = () => {
     const patches = [constants_default(), dom_default()];
     return () => _.forEachRight(patches, (p) => p());
   };
 
-  // src/index.js
+  // src/index.ts
   if (window.kaihax) {
     console.log("Kaihax already loaded, uninjecting first");
     kaihax.uninject();
@@ -620,11 +607,13 @@
     patcher: {
       after: patcher_default.after,
       before: patcher_default.before,
-      instead: patcher_default.instead
+      instead: patcher_default.instead,
+      observe: patcher_default.observe
     },
     utils: utils_default,
     uninject: () => {
-      patcher_default.cleanupAll();
+      patcher_default.unpatchAll();
+      patcher_default.unobserve();
       untranslate();
       delete window.kaihax;
     }
