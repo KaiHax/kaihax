@@ -4,13 +4,16 @@ import patcher from "./patcher";
 import en_translate from "./en_translate";
 import utils from "./utils";
 
+// @ts-expect-error
 if (window.kaihax) {
   console.log("Kaihax already loaded, uninjecting first");
+  // @ts-expect-error
   kaihax.uninject();
 }
 
 const untranslate = en_translate();
 
+// @ts-expect-error
 window.kaihax = {
   modules: {
     webpack,
@@ -23,8 +26,9 @@ window.kaihax = {
   },
   utils,
   uninject: () => {
-    patcher.cleanupAll();
+    patcher.unpatchAll();
     untranslate();
+    // @ts-expect-error
     delete window.kaihax;
   },
 };

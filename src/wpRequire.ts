@@ -1,3 +1,4 @@
+// @ts-nocheck
 const wpRequire = window["webpackJsonpkaihei-react"].push([
   [],
   {

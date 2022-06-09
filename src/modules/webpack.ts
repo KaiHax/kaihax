@@ -2,7 +2,7 @@ import wpRequire from "../wpRequire";
 
 const modules = wpRequire.c;
 
-function findAll(filter) {
+function findAll(filter: (m: any) => boolean) {
   let found = [];
 
   for (const mod in modules) {
@@ -27,14 +27,14 @@ const webpack = {
   wpRequire,
   modules,
 
-  find: (filter) => findAll(filter)[0],
+  find: (filter: (m: any) => boolean) => findAll(filter)[0],
   findAll,
 
-  findByPropsAll: (...props) =>
+  findByPropsAll: (...props: string[]) =>
     findAll((m) => props.every((p) => m[p] !== undefined)),
-  findByProps: (...props) => webpack.findByPropsAll(...props)[0],
+  findByProps: (...props: string[]) => webpack.findByPropsAll(...props)[0],
 
-  findByNestedPropsAll: (...props) =>
+  findByNestedPropsAll: (...props: string[]) =>
     findAll((m) =>
       props.every((p) => Object.keys(m).some((k) => m[k]?.[p] !== undefined))
     ),
