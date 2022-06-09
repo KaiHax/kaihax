@@ -3,7 +3,7 @@ import fs from "fs/promises";
 
 try {
   await esbuild.build({
-    entryPoints: ["./src/index.js"],
+    entryPoints: ["./src/index.ts"],
     outfile: "./dist/build.js",
     minify: false,
     bundle: true,

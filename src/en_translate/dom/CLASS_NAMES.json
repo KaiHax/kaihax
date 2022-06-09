@@ -1,5 +1,6 @@
 {
-  "richeditor_placeholders": "richeditor-placeholders",
+  "richeditor_placeholders": "editor-placeholder",
+  "userlist_container": "user-list-container",
   "userlist_grouptitle": "user-list-group-title",
   "msg_time": "msg-time",
   "scroll_bottom_tips": "scroll-bottom-tips",

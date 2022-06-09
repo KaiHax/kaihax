@@ -6,6 +6,8 @@ import utils from "./utils";
 
 // @ts-expect-error
 if (window.kaihax) {
+  // assume under development, so a handy clear is always appreciated
+  console.clear();
   console.log("Kaihax already loaded, uninjecting first");
   // @ts-expect-error
   kaihax.uninject();
