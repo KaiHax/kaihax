@@ -19,11 +19,11 @@ const observer = new MutationObserver((records) => {
 });
 
 // mutation observe the entire fking DOM LMAO
-observer.observe(document.getElementById("root")!, {
-	subtree: true,
-	childList: true,
-	attributes: true,
-});
+observer.observe(document.body, {
+  subtree: true,
+  childList: true,
+  attributes: true,
+})
 
 export default {
 	...sr,

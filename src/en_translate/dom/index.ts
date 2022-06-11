@@ -6,8 +6,8 @@ import nowFriends from "./nowFriends";
 import pmWelcomeTips from "./pmWelcomeTips";
 import tooltips from "./tooltips";
 import menuText from "./menuText";
-/*import inviteModal from "./inviteModal";
-import searchInput from "./searchInput";*/
+import inviteModal from "./inviteModal";
+import searchInput from "./searchInput";
 
 export default () => {
   const unpatches = [
@@ -18,9 +18,9 @@ export default () => {
     nowFriends(),
     pmWelcomeTips(),
     tooltips(),
-    menuText()/*,
+    menuText(),
     inviteModal(),
-    searchInput(),*/
+    searchInput(),
   ];
 
   return () => unpatches.forEach((p) => p());
