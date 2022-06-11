@@ -50,12 +50,12 @@
 
   // src/modules/common.ts
   var bothConstants = webpack_default.findByPropsAll("app_name");
-  var EN_APP_NAME = "Kaiheila";
+  var EN_APP_TITLE = "KAIHEI LA";
   var common_default = {
     React: webpack_default.findByProps("createElement"),
     lodash: _,
-    constantsCN: bothConstants.find((c) => c.app_name !== EN_APP_NAME),
-    constantsEN: bothConstants.find((c) => c.app_name === EN_APP_NAME)
+    constantsCN: bothConstants.find((c) => c.account_kaiheilatitle !== EN_APP_TITLE),
+    constantsEN: bothConstants.find((c) => c.account_kaiheilatitle === EN_APP_TITLE)
   };
 
   // node_modules/.pnpm/spitroast@1.4.2/node_modules/spitroast/dist/esm/index.js
@@ -256,8 +256,8 @@
   var vip_permission = "BUFF perk";
   var vip_description = "BUFF description";
   var add_buff_make_it_more_interesting = "Add BUFF to the chat to make it more fun";
-  var add_buff = "Activate onw";
-  var kaiheila_vip = "Activate Kaieila BUFF";
+  var add_buff = "Activate now";
+  var kaiheila_vip = "Activate Kaiheila BUFF";
   var select_friend = "Select a friend";
   var vip_plan = "BUFF duration";
   var payment_mode = "Payment method";
@@ -446,8 +446,8 @@
   var emoji_objectlab = "Objects";
   var emoji_symbollab = "Symbols";
   var emoji_flaglab = "Flags";
-  var message_historystr = "You are viewing old news";
-  var message_latestbtn = "View the latest news";
+  var message_historystr = "You are viewing old messages";
+  var message_latestbtn = "Jump to present";
   var message_cdstr = "Members speak at %s intervals";
   var message_remitstr = "Slow mode is on, but you are immune!";
   var message_amountstr = "There are %s1 new messages since %s";
@@ -919,7 +919,7 @@
   var buff_renewbtn = "Renew now";
   var buff_giftbtn = "Give to a friend";
   var buff_equitystr = "Unlock more benefits for as little as $19.90 per month!";
-  var buff_effecttitle = "BUFF perk";
+  var buff_effecttitle = "BUFF perks";
   var buff_settitle = "BUFF package";
   var buff_bannerlab = "Background Banner";
   var buff_bannerstr = "Customized background image, support GIF format";
@@ -1784,174 +1784,174 @@
   var country_deitem = "Germany";
   var country_ruitem = "Russia";
   var country_egitem = "Egypt";
-  var country_zaitem = "\u5357\u975E";
-  var country_gritem = "\u5E0C\u814A";
-  var country_nlitem = "\u8377\u5170";
-  var country_beitem = "\u6BD4\u5229\u65F6";
-  var country_fritem = "\u6CD5\u56FD";
-  var country_esitem = "\u897F\u73ED\u7259";
-  var country_huitem = "\u5308\u7259\u5229";
-  var country_ititem = "\u610F\u5927\u5229";
-  var country_roitem = "\u7F57\u9A6C\u5C3C\u4E9A";
-  var country_chitem = "\u745E\u58EB";
-  var country_atitem = "\u5965\u5730\u5229";
-  var country_dkitem = "\u4E39\u9EA6";
-  var country_seitem = "\u745E\u5178";
-  var country_noitem = "\u632A\u5A01";
-  var country_plitem = "\u6CE2\u5170";
-  var country_peitem = "\u79D8\u9C81";
-  var country_mxitem = "\u58A8\u897F\u54E5";
-  var country_cuitem = "\u53E4\u5DF4";
-  var country_aritem = "\u963F\u6839\u5EF7";
-  var country_britem = "\u5DF4\u897F";
-  var country_clitem = "\u667A\u5229";
-  var country_coitem = "\u54E5\u4F26\u6BD4\u4E9A";
-  var country_veitem = "\u59D4\u5185\u745E\u62C9";
-  var country_iditem = "\u5370\u5EA6\u5C3C\u897F\u4E9A";
-  var country_phitem = "\u83F2\u5F8B\u5BBE";
-  var country_nzitem = "\u65B0\u897F\u5170";
-  var country_thitem = "\u6CF0\u56FD";
-  var country_kzitem = "\u54C8\u8428\u514B\u65AF\u5766";
-  var country_kritem = "\u97E9\u56FD";
-  var country_vnitem = "\u8D8A\u5357";
-  var country_tritem = "\u571F\u8033\u5176";
-  var country_initem = "\u5370\u5EA6";
-  var country_pkitem = "\u5DF4\u57FA\u65AF\u5766";
-  var country_afitem = "\u963F\u5BCC\u6C57";
-  var country_lkitem = "\u65AF\u91CC\u5170\u5361";
-  var country_mmitem = "\u7F05\u7538";
-  var country_iritem = "\u4F0A\u6717";
-  var country_maitem = "\u6469\u6D1B\u54E5";
-  var country_dzitem = "\u963F\u5C14\u53CA\u5229\u4E9A";
-  var country_tnitem = "\u7A81\u5C3C\u65AF";
-  var country_lyitem = "\u5229\u6BD4\u4E9A";
-  var country_gmitem = "\u5188\u6BD4\u4E9A";
-  var country_snitem = "\u585E\u5185\u52A0\u5C14";
-  var country_mlitem = "\u9A6C\u91CC";
-  var country_gnitem = "\u51E0\u5185\u4E9A";
-  var country_clvitem = "\u79D1\u7279\u8FEA\u74E6";
-  var country_bfitem = "\u5E03\u57FA\u7EB3\u6CD5\u7D22";
-  var country_neitem = "\u5C3C\u65E5\u5C14";
-  var country_tgitem = "\u591A\u54E5";
-  var country_bjitem = "\u8D1D\u5B81";
-  var country_muitem = "\u6BDB\u91CC\u6C42\u65AF";
-  var country_lritem = "\u5229\u6BD4\u91CC\u4E9A";
-  var country_slitem = "\u585E\u62C9\u5229\u6602";
-  var country_ghitem = "\u52A0\u7EB3";
-  var country_ngitem = "\u5C3C\u65E5\u5229\u4E9A";
-  var country_tditem = "\u4E4D\u5F97";
-  var country_cfitem = "\u4E2D\u975E\u5171\u548C\u56FD";
-  var country_cmitem = "\u5580\u9EA6\u9686";
-  var country_stitem = "\u5723\u591A\u7F8E\u548C\u666E\u6797\u897F\u6BD4";
-  var country_gaitem = "\u52A0\u84EC";
-  var country_cgitem = "\u521A\u679C\u6C11\u4E3B\u5171\u548C\u56FD";
-  var country_aoitem = "\u5B89\u54E5\u62C9";
-  var country_ascensionitem = "\u963F\u68EE\u677E\u5C9B";
-  var country_scitem = "\u585E\u820C\u5C14";
-  var country_sditem = "\u82CF\u4E39";
-  var country_etitem = "\u57C3\u585E\u4FC4\u6BD4\u4E9A";
-  var country_soitem = "\u7D22\u9A6C\u91CC";
-  var country_djitem = "\u5409\u5E03\u63D0";
-  var country_keitem = "\u80AF\u5C3C\u4E9A";
-  var country_tzitem = "\u5766\u6851\u5C3C\u4E9A";
-  var country_ugitem = "\u4E4C\u5E72\u8FBE";
-  var country_biitem = "\u5E03\u9686\u8FEA";
-  var country_mzitem = "\u83AB\u6851\u6BD4\u514B";
-  var country_zmitem = "\u8D5E\u6BD4\u4E9A";
-  var country_mgitem = "\u9A6C\u8FBE\u52A0\u65AF\u52A0";
-  var country_zwitem = "\u6D25\u5DF4\u5E03\u97E6";
-  var country_naitem = "\u7EB3\u7C73\u6BD4\u4E9A";
-  var country_mwitem = "\u9A6C\u62C9\u7EF4";
-  var country_lsitem = "\u83B1\u7D22\u6258";
-  var country_bwitem = "\u535A\u8328\u74E6\u7EB3";
-  var country_szitem = "\u65AF\u5A01\u58EB\u5170";
-  var country_giitem = "\u76F4\u5E03\u7F57\u9640";
-  var country_ptitem = "\u8461\u8404\u7259";
-  var country_luitem = "\u5362\u68EE\u5821";
-  var country_ieitem = "\u7231\u5C14\u5170";
-  var country_isitem = "\u51B0\u5C9B";
-  var country_alitem = "\u963F\u5C14\u5DF4\u5C3C\u4E9A";
-  var country_mtitem = "\u9A6C\u8033\u4ED6";
-  var country_cyitem = "\u585E\u6D66\u8DEF\u65AF";
-  var country_fiitem = "\u82AC\u5170";
-  var country_bgitem = "\u4FDD\u52A0\u5229\u4E9A";
-  var country_ltitem = "\u7ACB\u9676\u5B9B";
-  var country_lvitem = "\u62C9\u8131\u7EF4\u4E9A";
-  var country_eeitem = "\u7231\u6C99\u5C3C\u4E9A";
-  var country_mditem = "\u6469\u5C14\u591A\u74E6";
-  var country_amitem = "\u4E9A\u7F8E\u5C3C\u4E9A";
-  var country_byitem = "\u767D\u4FC4\u7F57\u65AF";
-  var country_aditem = "\u5B89\u9053\u5C14\u5171\u548C\u56FD";
-  var country_mcitem = "\u6469\u7EB3\u54E5";
-  var country_smitem = "\u5723\u9A6C\u529B\u8BFA";
-  var country_uaitem = "\u4E4C\u514B\u5170";
-  var country_siitem = "\u65AF\u6D1B\u6587\u5C3C\u4E9A";
-  var country_csitem = "\u6377\u514B";
-  var country_skitem = "\u65AF\u6D1B\u4F10\u514B";
-  var country_liitem = "\u5217\u652F\u6566\u58EB\u767B";
-  var country_bzitem = "\u4F2F\u5229\u5179";
-  var country_gtitem = "\u74DC\u5730\u9A6C\u62C9";
-  var country_svitem = "\u8428\u5C14\u74E6\u591A";
-  var country_hnitem = "\u6D2A\u90FD\u62C9\u65AF";
-  var country_niitem = "\u5C3C\u52A0\u62C9\u74DC";
-  var country_critem = "\u54E5\u65AF\u8FBE\u9ECE\u52A0";
-  var country_paitem = "\u5DF4\u62FF\u9A6C";
-  var country_htitem = "\u6D77\u5730";
-  var country_boitem = "\u73BB\u5229\u7EF4\u4E9A";
-  var country_gyitem = "\u572D\u4E9A\u90A3";
-  var country_ecitem = "\u5384\u74DC\u591A\u5C14";
-  var country_gfitem = "\u6CD5\u5C5E\u572D\u4E9A\u90A3";
-  var country_pyitem = "\u5DF4\u62C9\u572D";
-  var country_mqitem = "\u9A6C\u63D0\u5C3C\u514B";
-  var country_sritem = "\u82CF\u91CC\u5357";
-  var country_uyitem = "\u4E4C\u62C9\u572D";
-  var country_bnitem = "\u6587\u83B1";
-  var country_pgitem = "\u5DF4\u5E03\u4E9A\u65B0\u51E0\u5185\u4E9A";
-  var country_toitem = "\u6C64\u52A0";
-  var country_sbitem = "\u6240\u7F57\u95E8\u7FA4\u5C9B";
-  var country_fjitem = "\u6590\u6D4E";
-  var country_ckitem = "\u5E93\u514B\u7FA4\u5C9B";
-  var country_pomitem = "\u6CD5\u5C5E\u6CE2\u5229\u5C3C\u897F\u4E9A";
-  var country_khitem = "\u67EC\u57D4\u5BE8";
-  var country_laitem = "\u8001\u631D";
-  var country_bditem = "\u5B5F\u52A0\u62C9\u56FD";
-  var country_mvitem = "\u9A6C\u5C14\u4EE3\u592B";
-  var country_lbitem = "\u9ECE\u5DF4\u5AE9";
-  var country_joitem = "\u7EA6\u65E6";
-  var country_syitem = "\u53D9\u5229\u4E9A";
-  var country_iqitem = "\u4F0A\u62C9\u514B";
-  var country_kwitem = "\u79D1\u5A01\u7279";
-  var country_saitem = "\u6C99\u7279\u963F\u62C9\u4F2F";
-  var country_yeitem = "\u4E5F\u95E8";
-  var country_omitem = "\u963F\u66FC";
-  var country_aeitem = "\u963F\u62C9\u4F2F\u8054\u5408\u914B\u957F\u56FD";
-  var country_ilitem = "\u4EE5\u8272\u5217";
-  var country_bhitem = "\u5DF4\u6797";
-  var country_qaitem = "\u5361\u5854\u5C14";
-  var country_mnitem = "\u8499\u53E4";
-  var country_npitem = "\u5C3C\u6CCA\u5C14";
-  var country_tjitem = "\u5854\u5409\u514B\u65AF\u5766";
-  var country_tmitem = "\u571F\u5E93\u66FC\u65AF\u5766";
-  var country_azitem = "\u963F\u585E\u62DC\u7586";
-  var country_geitem = "\u683C\u9C81\u5409\u4E9A";
-  var country_kgitem = "\u5409\u5C14\u5409\u65AF\u65AF\u5766";
-  var country_uzitem = "\u4E4C\u5179\u522B\u514B\u65AF\u5766";
-  var country_bsitem = "\u5DF4\u54C8\u9A6C";
-  var country_bbitem = "\u5DF4\u5DF4\u591A\u65AF";
-  var country_aiitem = "\u5B89\u572D\u62C9\u5C9B";
-  var country_agitem = "\u5B89\u63D0\u74DC\u548C\u5DF4\u5E03\u8FBE";
-  var country_caymanitem = "\u5F00\u66FC\u7FA4\u5C9B";
-  var country_bmitem = "\u767E\u6155\u5927\u7FA4\u5C9B";
-  var country_gditem = "\u683C\u6797\u7EB3\u8FBE";
-  var country_msitem = "\u8499\u7279\u585E\u62C9\u7279\u5C9B";
-  var country_guitem = "\u5173\u5C9B";
-  var country_lcitem = "\u5723\u9732\u897F\u4E9A";
-  var country_pritem = "\u6CE2\u591A\u9ECE\u5404";
-  var country_doitem = "\u591A\u660E\u5C3C\u52A0\u5171\u548C\u56FD";
-  var country_ttitem = "\u7279\u7ACB\u5C3C\u8FBE\u548C\u591A\u5DF4\u54E5";
-  var country_jmitem = "\u7259\u4E70\u52A0";
-  var country_serbiaitem = "\u585E\u5C14\u7EF4\u4E9A\u5171\u548C\u56FD";
-  var country_mauritaniaitem = "\u6BDB\u91CC\u5854\u5C3C\u4E9A";
+  var country_zaitem = "South Africa";
+  var country_gritem = "Greece";
+  var country_nlitem = "Netherlands";
+  var country_beitem = "Belgium";
+  var country_fritem = "France";
+  var country_esitem = "Spain";
+  var country_huitem = "Hungary";
+  var country_ititem = "Italy";
+  var country_roitem = "Romania";
+  var country_chitem = "Switzerland";
+  var country_atitem = "Austria";
+  var country_dkitem = "Denmark";
+  var country_seitem = "Sweden";
+  var country_noitem = "Norway";
+  var country_plitem = "Poland";
+  var country_peitem = "Peru";
+  var country_mxitem = "Mexico";
+  var country_cuitem = "Cuba";
+  var country_aritem = "Argentina";
+  var country_britem = "Brazil";
+  var country_clitem = "Chile";
+  var country_coitem = "Colombia";
+  var country_veitem = "Venezuela";
+  var country_iditem = "Indonesia";
+  var country_phitem = "Philippines";
+  var country_nzitem = "New Zealand";
+  var country_thitem = "Thailand";
+  var country_kzitem = "Kazakhstan";
+  var country_kritem = "Croatia";
+  var country_vnitem = "Vietnam";
+  var country_tritem = "Turkey";
+  var country_initem = "India";
+  var country_pkitem = "Pakistan";
+  var country_afitem = "Afghanistan";
+  var country_lkitem = "Sri Lanka";
+  var country_mmitem = "Myanmar";
+  var country_iritem = "Iran";
+  var country_maitem = "Morocco";
+  var country_dzitem = "Algeria";
+  var country_tnitem = "Tunisia";
+  var country_lyitem = "Libya";
+  var country_gmitem = "Gambia";
+  var country_snitem = "Senegal";
+  var country_mlitem = "Mali";
+  var country_gnitem = "Guinea";
+  var country_clvitem = "Cape Verde";
+  var country_bfitem = "Burkina Faso";
+  var country_neitem = "Niger";
+  var country_tgitem = "Togo";
+  var country_bjitem = "Benin";
+  var country_muitem = "Mauritius";
+  var country_lritem = "Liberia";
+  var country_slitem = "Sierra Leone";
+  var country_ghitem = "Ghana";
+  var country_ngitem = "Nigeria";
+  var country_tditem = "Tchad";
+  var country_cfitem = "Central African Republic";
+  var country_cmitem = "Comoros";
+  var country_stitem = "Sao Tome and Principe";
+  var country_gaitem = "Gabon";
+  var country_cgitem = "Congo";
+  var country_aoitem = "Angola";
+  var country_ascensionitem = "Ascension Island";
+  var country_scitem = "Seychelles";
+  var country_sditem = "Sudan";
+  var country_etitem = "Ethiopia";
+  var country_soitem = "Somalia";
+  var country_djitem = "Djibouti";
+  var country_keitem = "Kenya";
+  var country_tzitem = "Tanzania";
+  var country_ugitem = "Uganda";
+  var country_biitem = "Burundi";
+  var country_mzitem = "Mozambique";
+  var country_zmitem = "Zambia";
+  var country_mgitem = "Madagascar";
+  var country_zwitem = "Zimbabwe";
+  var country_naitem = "Namibia";
+  var country_mwitem = "Malawi";
+  var country_lsitem = "Lesotho";
+  var country_bwitem = "Botswana";
+  var country_szitem = "Swaziland";
+  var country_giitem = "Gibraltar";
+  var country_ptitem = "Portugal";
+  var country_luitem = "Luxembourg";
+  var country_ieitem = "Ireland";
+  var country_isitem = "Iceland";
+  var country_alitem = "Albania";
+  var country_mtitem = "Malta";
+  var country_cyitem = "Cyprus";
+  var country_fiitem = "Finland";
+  var country_bgitem = "Bulgaria";
+  var country_ltitem = "Lithuania";
+  var country_lvitem = "Latvia";
+  var country_eeitem = "Estonia";
+  var country_mditem = "Moldova";
+  var country_amitem = "Armenia";
+  var country_byitem = "Belarus";
+  var country_aditem = "Andorra";
+  var country_mcitem = "Monaco";
+  var country_smitem = "San Marino";
+  var country_uaitem = "Ukraine";
+  var country_siitem = "Slovenia";
+  var country_csitem = "Serbia and Montenegro";
+  var country_skitem = "Slovakia";
+  var country_liitem = "Liechtenstein";
+  var country_bzitem = "Belize";
+  var country_gtitem = "Guatemala";
+  var country_svitem = "El Salvador";
+  var country_hnitem = "Honduras";
+  var country_niitem = "Nicaragua";
+  var country_critem = "Costa Rica";
+  var country_paitem = "Panama";
+  var country_htitem = "Haiti";
+  var country_boitem = "Bolivia";
+  var country_gyitem = "Guyana";
+  var country_ecitem = "Ecuador";
+  var country_gfitem = "French Guiana";
+  var country_pyitem = "Paraguay";
+  var country_mqitem = "Martinique";
+  var country_sritem = "Suriname";
+  var country_uyitem = "Uruguay";
+  var country_bnitem = "Brunei";
+  var country_pgitem = "Papua New Guinea";
+  var country_toitem = "Tonga";
+  var country_sbitem = "Seychelles";
+  var country_fjitem = "Fiji";
+  var country_ckitem = "Cook Islands";
+  var country_pomitem = "Pomeroon";
+  var country_khitem = "Cambodia";
+  var country_laitem = "Laos";
+  var country_bditem = "Bangladesh";
+  var country_mvitem = "Maldives";
+  var country_lbitem = "Libya";
+  var country_joitem = "Jordan";
+  var country_syitem = "Syria";
+  var country_iqitem = "Iraq";
+  var country_kwitem = "Kuwait";
+  var country_saitem = "Saudi Arabia";
+  var country_yeitem = "Yemen";
+  var country_omitem = "Oman";
+  var country_aeitem = "United Arab Emirates";
+  var country_ilitem = "Israel";
+  var country_bhitem = "Bahrain";
+  var country_qaitem = "Qatar";
+  var country_mnitem = "Mongolia";
+  var country_npitem = "Nepal";
+  var country_tjitem = "Tajikistan";
+  var country_tmitem = "Turkmenistan";
+  var country_azitem = "Azerbaijan";
+  var country_geitem = "Georgia";
+  var country_kgitem = "Kyrgyzstan";
+  var country_uzitem = "Uzbekistan";
+  var country_bsitem = "Bahamas";
+  var country_bbitem = "Barbados";
+  var country_aiitem = "Anguilla";
+  var country_agitem = "Antigua and Barbuda";
+  var country_caymanitem = "Cayman Islands";
+  var country_bmitem = "British Montserrat";
+  var country_gditem = "Grenada";
+  var country_msitem = "Montserrat";
+  var country_guitem = "Guadeloupe";
+  var country_lcitem = "Saint Lucia";
+  var country_pritem = "Puerto Rico";
+  var country_doitem = "Dominica";
+  var country_ttitem = "Trinidad and Tobago";
+  var country_jmitem = "Jersey";
+  var country_serbiaitem = "Serbia";
+  var country_mauritaniaitem = "Mauritania";
   var cancel_link = "Cancel link";
   var remove_style = "Remove style";
   var EN_CONSTANTS_default = {
@@ -3715,14 +3715,208 @@
 
   // src/en_translate/constants.ts
   var constants_default = () => {
-    const original = Object.assign({}, common_default.constantsCN);
+    const original = { ...common_default.constantsCN };
     Object.assign(common_default.constantsCN, EN_CONSTANTS_default);
     return () => Object.assign(common_default.constantsCN, original);
   };
 
+  // src/en_translate/dom/CLASS_NAMES.json
+  var richeditor_placeholders = "editor-placeholder";
+  var userlist_container = "user-list-container";
+  var userlist_grouptitle = "user-list-group-title";
+  var msg_time = "msg-time";
+  var scroll_bottom_tips = "scroll-bottom-tips";
+  var message_oneline = "message-oneline";
+  var welcome_tip = "welcome-tip";
+  var menu_text = "menu-text";
+  var setting_item = "setting-item";
+  var guild_invite_modal = "guild-invite-modal";
+  var modal_title = "modal-title";
+  var share_tips = "share-tips";
+  var invite_setting = "invite-setting";
+  var button_text = "button-text";
+  var search_input = "search-input";
+  var edit_invite_url_modal = "edit-invite-url-modal";
+  var internet_fraud_tip = "internet-fraud-tip";
+  var empty_channel = "empty-channel";
+  var empty_channel_title = "title";
+  var guide_desc = "guide-desc";
+  var app_kaihei_link = "app-kaihei-link";
+  var CLASS_NAMES_default = {
+    richeditor_placeholders,
+    userlist_container,
+    userlist_grouptitle,
+    msg_time,
+    scroll_bottom_tips,
+    message_oneline,
+    welcome_tip,
+    menu_text,
+    setting_item,
+    guild_invite_modal,
+    modal_title,
+    share_tips,
+    invite_setting,
+    button_text,
+    search_input,
+    edit_invite_url_modal,
+    internet_fraud_tip,
+    empty_channel,
+    empty_channel_title,
+    guide_desc,
+    app_kaihei_link
+  };
+
+  // src/en_translate/dom/messageTime.ts
+  var messageTime_default = () => patcher_default.observe(`.${CLASS_NAMES_default.msg_time}`, (elem) => {
+    if (elem.textContent?.startsWith("\u4ECA\u5929 \u51CC\u6668"))
+      elem.innerHTML = `Early this morning at ${elem.textContent.split(" ").slice(2)}`;
+    else if (elem.textContent && !elem.textContent.includes("at")) {
+      const replaced = elem.textContent.replaceAll(/(\d{4})年(\d{2})月(\d{2})日 .*? /g, "$1-$2-$3 ").replaceAll("\u4E0A\u5348", "morning").replaceAll("\u4E2D\u5348", "afternoon").replaceAll("\u51CC\u6668", "morning").replaceAll("\u4E0B\u5348", "afternoon").replaceAll("\u4ECA\u5929", "This").replaceAll(/昨天 .*? /g, "Yesterday ").replaceAll(/星期四 .*? /g, "Thursday ").replaceAll(/星期三 .*? /g, "Wednesday ");
+      const part1 = replaced.split(" ").slice(0, -1).join(" ");
+      const part2 = _.last(replaced.split(" "));
+      elem.innerHTML = `${part1} at ${part2}`;
+    }
+  });
+
+  // src/en_translate/dom/REPLACES.json
+  var _menu_text___setting_item = {
+    \u9080\u8BF7\u5176\u4ED6\u4EBA: "Invite",
+    \u9080\u8BF7: "Invite",
+    \u6301\u7EED15\u5206\u949F: "for 15 minutes",
+    \u6301\u7EED1\u5C0F\u65F6: "for 1 hour",
+    \u6301\u7EED8\u5C0F\u65F6: "for 8 hours",
+    \u6301\u7EED24\u5C0F\u65F6: "for 24 hours",
+    \u76F4\u5230\u6211\u518D\u6B21\u5F00\u542F: "until I unmute",
+    \u590D\u5236ID: "Copy ID",
+    \u7F6E\u9876: "Pin",
+    \u5220\u9664\u597D\u53CB: "Unfriend"
+  };
+  var _button_text = {
+    \u590D\u5236: "Copy",
+    \u5173\u95ED: "Close",
+    \u8BBE\u7F6E\u5FEB\u6377\u952E: "Set shortcut",
+    \u786E\u8BA4: "Confirm"
+  };
+  var _invite_button = {
+    \u9080\u8BF7: "Send",
+    \u5DF2\u53D1\u9001: "Sent"
+  };
+  var _cancel_btn = {
+    \u53D6\u6D88: "Cancel"
+  };
+  var _label = {
+    \u624B\u673A\u53F7: "Phone number",
+    \u624B\u673A\u9A8C\u8BC1\u7801: "Phone code",
+    \u9A8C\u8BC1\u7801: "Code"
+  };
+  var _nav_text = {
+    \u8D26\u53F7\u8BBE\u7F6E: "Account",
+    \u9690\u79C1\u8BBE\u7F6E: "Privacy",
+    \u6388\u6743\u7BA1\u7406: "Authorizations",
+    \u9080\u8BF7: "Invites",
+    \u6FC0\u6D3BBUFF: "Buy BUFF",
+    \u670D\u52A1\u5668\u52A9\u529B: "Server boost",
+    \u6211\u7684\u8D26\u5355: "Bills",
+    \u5151\u6362\u7801: "Gifts",
+    \u8BED\u97F3\u8BBE\u7F6E: "Voice",
+    \u6309\u952E\u8BBE\u7F6E: "Keyboard",
+    \u8868\u60C5\u7BA1\u7406: "Emoji",
+    \u6E38\u620F\u5185\u8986\u76D6: "Overlay",
+    \u901A\u77E5: "Notifications",
+    \u5916\u89C2: "Appearance",
+    \u5DE5\u5177: "Tools",
+    \u9AD8\u7EA7\u8BBE\u7F6E: "Advanced",
+    \u7528\u6237\u52A8\u6001: "User activity",
+    Windows\u8BBE\u7F6E: "Windows"
+  };
+  var _mask_nav_group_name = {
+    \u7528\u6237\u8BBE\u7F6E: "Account",
+    \u5F00\u9ED1\u5566BUFF: "Kaiheila BUFF",
+    \u5E94\u7528\u8BBE\u7F6E: "Application"
+  };
+  var _setting_label = {
+    \u5BC6\u7801: "Password",
+    \u6E38\u620F\u5185\u8986\u76D6: "Overlay",
+    \u8BBE\u7F6E\u8BF4\u8BDD\u5FEB\u6377\u952E: "Set shortcut",
+    "\u2018\u6309\u952E\u8BF4\u8BDD\u2019\u653E\u5F00\u6309\u952E\u5EF6\u8FDF": "Release key delay"
+  };
+  var _switch_item_content____first_child = {
+    \u670D\u52A1\u5668\u6210\u5458: "Server members"
+  };
+  var _switch_label = {
+    \u5F00\u673A\u81EA\u52A8\u542F\u52A8: "Start on boot"
+  };
+  var _small_label = {
+    \u6D88\u606F\u901A\u77E5: "Notifications",
+    \u8033\u673A\u9759\u97F3: "Mute headphones",
+    \u53D6\u6D88\u8033\u673A\u9759\u97F3: "Unmute headphones",
+    \u9EA6\u514B\u98CE\u9759\u97F3: "Mute microphone",
+    \u9EA6\u514B\u98CE\u53D6\u6D88\u9759\u97F3: "Unmute microphone",
+    \u8BED\u97F3\u8FDE\u63A5\u65AD\u5F00: "Disconnect",
+    "\u2018\u6309\u952E\u8BF4\u8BDD\u2019\u5F00\u542F": "Enable",
+    "\u2018\u6309\u952E\u8BF4\u8BDD\u2019\u5173\u95ED": "Disable",
+    \u7528\u6237\u8FDE\u63A5: "Connect",
+    \u7528\u6237\u79BB\u5F00: "Leave",
+    \u5168\u5C4F\u622A\u56FE: "Fullscreen screenshot"
+  };
+  var _setting_model_right_title = {
+    \u9080\u8BF7: "Invites",
+    \u6E38\u620F\u5185\u8986\u76D6: "Overlay"
+  };
+  var _setting_model_title_tips = {
+    \u5728\u8FD9\u91CC\u53EF\u4EE5\u66F4\u6539\u6E38\u620F\u5185\u8986\u76D6\u7684\u8BBE\u7F6E: "Here you can change the overlay settings"
+  };
+  var _block_selector_item__text = {
+    \u8BED\u97F3\u611F\u5E94: "Voice Detection",
+    \u6309\u952E\u8BF4\u8BDD: "Push to talk",
+    \u603B\u662F: "Always",
+    \u53EA\u5728\u8BF4\u8BDD\u7684\u65F6\u5019: "Only when speaking",
+    \u6697\u591C\u6A21\u5F0F: "Dark mode",
+    \u660E\u4EAE\u6A21\u5F0F: "Light mode"
+  };
+  var _sub_title = {
+    "\u5F00\u53D1\u8005\u5728\u6B64\u6A21\u5F0F\u4E0B\u53EF\u66F4\u4E3A\u4FBF\u6377\u5730\u7F16\u5199\u3001\u7BA1\u7406\u673A\u5668\u4EBA\u3002": "In this mode, you can write bots more easily."
+  };
+  var REPLACES_default = {
+    ".menu-text, .setting-item": _menu_text___setting_item,
+    ".button-text": _button_text,
+    ".invite-button": _invite_button,
+    ".cancel-btn": _cancel_btn,
+    ".label": _label,
+    ".nav-text": _nav_text,
+    ".mask-nav-group-name": _mask_nav_group_name,
+    ".setting-label": _setting_label,
+    ".switch-item-content > :first-child": _switch_item_content____first_child,
+    ".switch-label": _switch_label,
+    ".small-label": _small_label,
+    ".setting-model-right-title": _setting_model_right_title,
+    ".setting-model-title-tips": _setting_model_title_tips,
+    ".block-selector-item .text": _block_selector_item__text,
+    ".sub-title": _sub_title
+  };
+
+  // src/en_translate/dom/textReplacements.ts
+  var textReplacements_default = () => {
+    const patches = Object.keys(REPLACES_default).map((k) => patcher_default.observe(k, (elem) => {
+      for (const match in REPLACES_default[k])
+        if (elem.textContent === match)
+          elem.innerHTML = REPLACES_default[k][match];
+    }));
+    return () => patches.forEach((p) => p());
+  };
+
+  // src/en_translate/dom/index.ts
+  var dom_default = () => {
+    const unpatches = [
+      messageTime_default(),
+      textReplacements_default()
+    ];
+    return () => unpatches.forEach((p) => p());
+  };
+
   // src/en_translate/index.ts
   var en_translate_default = () => {
-    const patches = [constants_default()];
+    const patches = [constants_default(), dom_default()];
     return () => _.forEachRight(patches, (p) => p());
   };
 
