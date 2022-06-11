@@ -13,17 +13,17 @@ import textReplacements from "./textReplacements";
 
 export default () => {
   const unpatches = [
-    chatbarPlaceholders(),
-    memberListGroup(),
+    //chatbarPlaceholders(),
+    //memberListGroup(),
     messageTime(),
-    scrollToBottom(),
-    nowFriends(),
-    pmWelcomeTips(),
-    tooltips(),
-    inviteModal(),
-    searchInput(),
-    fraud(),
-    serverWelcome(),
+    //scrollToBottom(),
+    //nowFriends(),
+    //pmWelcomeTips(),
+    //tooltips(),
+    //inviteModal(),
+    //searchInput(),
+    //fraud(),
+    //serverWelcome(),
     textReplacements(),
   ];
 

@@ -92,7 +92,7 @@ import EN_CONSTANTS from "./EN_CONSTANTS.json"
 };*/
 
 export default () => {
-  const original = Object.assign({}, common.constantsCN);
+  const original = {...common.constantsCN};
   Object.assign(common.constantsCN, EN_CONSTANTS);
 
   return () => Object.assign(common.constantsCN, original);
