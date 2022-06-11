@@ -5,9 +5,11 @@ import scrollToBottom from "./scrollToBottom";
 import nowFriends from "./nowFriends";
 import pmWelcomeTips from "./pmWelcomeTips";
 import tooltips from "./tooltips";
-import menuText from "./menuText";
 import inviteModal from "./inviteModal";
 import searchInput from "./searchInput";
+import fraud from "./fraud";
+import serverWelcome from "./serverWelcome";
+import textReplacements from "./textReplacements";
 
 export default () => {
   const unpatches = [
@@ -18,9 +20,11 @@ export default () => {
     nowFriends(),
     pmWelcomeTips(),
     tooltips(),
-    menuText(),
     inviteModal(),
     searchInput(),
+    fraud(),
+    serverWelcome(),
+    textReplacements(),
   ];
 
   return () => unpatches.forEach((p) => p());

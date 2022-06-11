@@ -14,5 +14,10 @@
   "invite_setting": "invite-setting",
   "button_text": "button-text",
   "search_input": "search-input",
-  "edit_invite_url_modal": "edit-invite-url-modal"
+  "edit_invite_url_modal": "edit-invite-url-modal",
+  "internet_fraud_tip": "internet-fraud-tip",
+  "empty_channel": "empty-channel",
+  "empty_channel_title": "title",
+  "guide_desc": "guide-desc",
+  "app_kaihei_link": "app-kaihei-link"
 }

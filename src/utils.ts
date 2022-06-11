@@ -1,13 +1,18 @@
 type Fiber = any;
 
 function reactFiberWalker(node: Fiber, prop: string, goUp = false): Fiber {
+  if (!node) return;
   if (node.pendingProps?.[prop] !== undefined) return node;
 
-  if (goUp) return reactFiberWalker(node.return, prop, goUp);
+  if (goUp) {
+    const ret = reactFiberWalker(node.return, prop, goUp);
+    if (ret) return ret;
+  } else {
+    const ret = reactFiberWalker(node.child, prop, goUp);
+    if (ret) return ret;
+  }
 
-  if (node.child !== null) return reactFiberWalker(node.child, prop, goUp);
-
-  if (node.sibling !== null) return reactFiberWalker(node.sibling, prop, goUp);
+  return reactFiberWalker(node.sibling, prop, goUp);
 }
 
 const getFiber = (node: Element): Fiber =>
@@ -16,7 +21,8 @@ const getFiber = (node: Element): Fiber =>
     Object.keys(node).find((key) => key.startsWith("__reactInternalInstance"))
   ];
 
-const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+const sleep = (time: number) =>
+  new Promise((resolve) => setTimeout(resolve, time));
 
 const getComponentFromDom = async (className: string) => {
   let element: Element | undefined;

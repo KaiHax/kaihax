@@ -1,6 +1,7 @@
 import common from "../modules/common";
+import EN_CONSTANTS from "./EN_CONSTANTS.json"
 
-const overrides = {
+/*const overrides = {
   click_refresh: "Click to refresh",
   add: "Add",
   added: "Added",
@@ -88,11 +89,11 @@ const overrides = {
   exchange_vip_please_input_cdkey: "Got a gift? Enter the code below:",
   exchange: "Exchange",
   exchange_success: "Redeemed successfully",
-};
+};*/
 
 export default () => {
   const original = Object.assign({}, common.constantsCN);
-  Object.assign(common.constantsCN, overrides);
+  Object.assign(common.constantsCN, EN_CONSTANTS);
 
   return () => Object.assign(common.constantsCN, original);
 };

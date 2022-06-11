@@ -1,0 +1,67 @@
+{
+  ".menu-text, .setting-item": {
+    "服务器助力": "Server Boost",
+    "邀请其他人": "Invite People",
+    "服务器设置": "Server Settings",
+    "创建新频道": "Create Channel",
+    "创建新分组": "Create Group",
+    "通知设定": "Notification Settings",
+    "隐私设置": "Privacy Settings",
+    "修改本服务器昵称": "Change Nickname",
+    "隐藏免打扰频道": "Hide Muted",
+    "离开服务器": "Leave server",
+
+    "编辑消息": "Edit",
+    "回复": "Reply",
+    "置顶": "Pin",
+    "复制消息": "Copy",
+    "删除消息": "Delete",
+
+    "个人资料": "Profile",
+    "邀请至服务器": "Invite",
+    "关闭私信": "Close PM",
+    "删除好友": "Remove friend",
+    "屏蔽该用户": "Block",
+    "免打扰": "Mute",
+
+    "持续15分钟": "for 15 minutes",
+    "持续1小时": "for 1 hour",
+    "持续8小时": "for 8 hours",
+    "持续24小时": "for 24 hours",
+    "直到我再次开启": "until I unmute",
+
+    "标识为已读": "Mark as read",
+    "邀请": "Invite",
+    "频道免打扰": "Mute",
+    "编辑频道": "Edit",
+    "克隆频道": "Clone",
+    "删除频道": "Delete",
+
+    "设置密码": "Set password",
+
+    "分组免打扰": "Mute",
+    "收起分组": "Collapse"
+  },
+  ".app-kaihei-link": {
+    "邀请朋友": "Invite friends",
+    "下载App": "Get the app",
+    "帮助中心": "Help center"
+  },
+  ".button-text": {
+    "复制": "Copy",
+    "关闭": "Close",
+    "设置快捷键": "Set shortcut",
+    "检查一下": "Test",
+    "购买": "Buy",
+    "立即使用": "Use now",
+    "确认": "Confirm",
+    "编辑": "Edit"
+  },
+  ".cancel-btn": {
+    "重置": "Reset"
+  },
+  ".invite-button": {
+    "邀请": "Send",
+    "已发送": "Sent"
+  }
+}

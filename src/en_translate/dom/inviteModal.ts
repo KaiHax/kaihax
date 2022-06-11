@@ -6,13 +6,20 @@ export default () =>
   patcher.observe(`.${CLASS_NAMES.guild_invite_modal}`, (modal) => {
     const modalTitle = modal.getElementsByClassName(CLASS_NAMES.modal_title)[0];
     if (utils.startsNotAscii(modalTitle.firstChild?.textContent!)) {
-      const guildInfo = utils.reactFiberWalker(
+      let inviteName = utils.reactFiberWalker(
         utils.getFiber(modal),
         "guildInfo",
         true
-      )?.pendingProps.guildInfo;
+      )?.pendingProps.guildInfo.name;
 
-      modalTitle.firstChild!.textContent = `Invite users to join ${guildInfo.name}`;
+      if (!inviteName) // in a channel invite instead
+        inviteName = "#" + utils.reactFiberWalker(
+          utils.getFiber(modal),
+          "channelInfo",
+          true
+        )?.pendingProps.channelInfo.name;
+
+      modalTitle.firstChild!.textContent = `Invite users to join ${inviteName}`;
     }
 
     modal.getElementsByClassName(CLASS_NAMES.share_tips)[0].innerHTML =
