@@ -2,23 +2,23 @@ import chatbarPlaceholders from "./chatbarPlaceholders";
 import memberListGroup from "./memberListGroup";
 import messageTime from "./messageTime";
 import scrollToBottom from "./scrollToBottom";
-/*import inviteModal from "./inviteModal";
-import menuText from "./menuText";
 import nowFriends from "./nowFriends";
-import searchInput from "./searchInput";
+import pmWelcomeTips from "./pmWelcomeTips";
 import tooltips from "./tooltips";
-import welcomeTips from "./welcomeTips";*/
+import menuText from "./menuText";
+/*import inviteModal from "./inviteModal";
+import searchInput from "./searchInput";*/
 
 export default () => {
   const unpatches = [
     chatbarPlaceholders(),
     memberListGroup(),
     messageTime(),
-    scrollToBottom()/*,
+    scrollToBottom(),
     nowFriends(),
-    welcomeTips(),
+    pmWelcomeTips(),
     tooltips(),
-    menuText(),
+    menuText()/*,
     inviteModal(),
     searchInput(),*/
   ];

@@ -7,5 +7,11 @@
   "通知设定": "Notification Settings",
   "隐私设置": "Privacy Settings",
   "修改本服务器昵称": "Change Nickname",
-  "隐藏免打扰频道": "Hide Muted"
+  "隐藏免打扰频道": "Hide Muted",
+
+  "编辑消息": "Edit",
+  "回复": "Reply",
+  "置顶": "Pin",
+  "复制消息": "Copy",
+  "删除消息": "Delete"
 }
