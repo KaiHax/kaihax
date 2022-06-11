@@ -170,18 +170,14 @@
   var observations = /* @__PURE__ */ new Set();
   var observer = new MutationObserver((records) => {
     const changedElems = /* @__PURE__ */ new Set();
-    const changedChildren = /* @__PURE__ */ new Set();
-    for (const record of records) {
+    for (const record of records)
       changedElems.add(record.target);
-      for (const e of record.addedNodes)
-        changedChildren.add(e);
-      for (const e of record.removedNodes)
-        changedChildren.add(e);
-    }
     for (const elem of changedElems)
-      for (const [sel, cb] of observations)
+      for (const [sel, cb] of observations) {
         if (elem.matches(sel))
           cb(elem);
+        elem.querySelectorAll(sel).forEach((e) => (e instanceof HTMLElement || e instanceof SVGElement) && cb(e));
+      }
   });
   observer.observe(document.getElementById("root"), {
     subtree: true,
@@ -366,24 +362,32 @@
   });
 
   // src/en_translate/dom/memberListGroup.ts
-  var memberListGroup_default = () => patcher_default.observe(`.${CLASS_NAMES_default.userlist_container}`, (elem) => {
-    for (const title of elem.getElementsByClassName(CLASS_NAMES_default.userlist_grouptitle))
-      if (title.textContent?.startsWith("\u5728\u7EBF"))
-        title.innerHTML = `Online ${title.textContent.split(" ")[1]}`;
-      else if (title.textContent?.startsWith("\u79BB\u7EBF"))
-        title.innerHTML = `Offline ${title.textContent.split(" ")[1]}`;
+  var memberListGroup_default = () => patcher_default.observe(`.${CLASS_NAMES_default.userlist_grouptitle}`, (title) => {
+    if (title.textContent?.startsWith("\u5728\u7EBF"))
+      title.innerHTML = `Online ${title.textContent.split(" ")[1]}`;
+    else if (title.textContent?.startsWith("\u79BB\u7EBF"))
+      title.innerHTML = `Offline ${title.textContent.split(" ")[1]}`;
   });
 
   // src/en_translate/dom/messageTime.ts
   var messageTime_default = () => patcher_default.observe(`.${CLASS_NAMES_default.msg_time}`, (elem) => {
+    debugger;
     if (elem.textContent?.startsWith("\u4ECA\u5929 \u51CC\u6668"))
       elem.innerHTML = `Early this morning at ${elem.textContent.split(" ").slice(2)}`;
-    else if (elem.textContent && utils_default.startsNotAscii(elem.textContent)) {
-      const replaced = elem.textContent.replaceAll("\u4E0A\u5348", "morning").replaceAll("\u4E0B\u5348", "afternoon").replaceAll("\u4ECA\u5929", "This").replaceAll("\u6628\u5929", "Yesterday");
+    else if (elem.textContent && !elem.textContent.includes("at")) {
+      const replaced = elem.textContent.replaceAll("\u4E0A\u5348", "morning").replaceAll("\u4E2D\u5348", "midday").replaceAll(" \u51CC\u6668", "early morning").replaceAll("\u4E0B\u5348", "afternoon").replaceAll("\u4ECA\u5929", "This").replaceAll("\u6628\u5929", "Yesterday").replaceAll("\u661F\u671F\u56DB", "Thursday").replaceAll("\u661F\u671F\u4E09", "Wednesday").replaceAll(/(\d{4})年(\d{2})月(\d{2})日/g, "$1-$2-$3 in the ");
       const part1 = replaced.split(" ").slice(0, -1).join(" ");
       const part2 = _.last(replaced.split(" "));
       elem.innerHTML = `${part1} at ${part2}`;
     }
+  });
+
+  // src/en_translate/dom/scrollToBottom.ts
+  var scrollToBottom_default = () => patcher_default.observe(`.${CLASS_NAMES_default.scroll_bottom_tips}`, (bar) => {
+    if (bar.firstChild)
+      bar.firstChild.textContent = "You're viewing old messages";
+    if (bar.lastChild)
+      bar.lastChild.textContent = "Jump to present";
   });
 
   // src/en_translate/dom/index.ts
@@ -391,7 +395,8 @@
     const unpatches = [
       chatbarPlaceholders_default(),
       memberListGroup_default(),
-      messageTime_default()
+      messageTime_default(),
+      scrollToBottom_default()
     ];
     return () => unpatches.forEach((p) => p());
   };
