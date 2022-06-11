@@ -199,8 +199,8 @@
 
   // src/en_translate/EN_CONSTANTS.json
   var __0 = "KaiHeiLa english constants by Yellowsink for KaiHax";
-  var __1 = "based off of their english constants, but much cleaned up and with missing keys";
-  var __2 = "please credit if used";
+  var __1 = "based off of KH en constants, but MUCH cleaned up and with LOADS of missing keys filled";
+  var __2 = "2h35m spent here by me thus far :), please credit if used";
   var click_refresh = "Click Refresh";
   var add = "Add";
   var added = "Added";
