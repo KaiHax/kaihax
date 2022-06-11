@@ -10,15 +10,15 @@ export default () => patcher.observe(`.${CLASS_NAMES.msg_time}`, (elem) => {
       .slice(2)}`;
   else if (elem.textContent && !elem.textContent.includes("at")) {
     const replaced = elem.textContent
-      .replaceAll(/(\d{4})年(\d{2})月(\d{2})日 .{2}/g, "$1-$2-$3")
+      .replaceAll(/(\d{4})年(\d{2})月(\d{2})日 .*? /g, "$1-$2-$3 ")
       .replaceAll("上午", "morning")
-      .replaceAll("中午", "midday")
-      .replaceAll("凌晨", "early morning")
+      .replaceAll("中午", "afternoon") // should be midday
+      .replaceAll("凌晨", "morning") // should be early morning
       .replaceAll("下午", "afternoon")
       .replaceAll("今天", "This")
-      .replaceAll("昨天", "Yesterday")
-      .replaceAll("星期四", "Thursday")
-      .replaceAll("星期三", "Wednesday");
+      .replaceAll(/昨天 .*? /g, "Yesterday ")
+      .replaceAll(/星期四 .*? /g, "Thursday ")
+      .replaceAll(/星期三 .*? /g, "Wednesday ");
       // TODO: more weekdays
 
     const part1 = replaced.split(" ").slice(0, -1).join(" ");
