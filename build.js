@@ -179,7 +179,7 @@
         elem.querySelectorAll(sel).forEach((e) => (e instanceof HTMLElement || e instanceof SVGElement) && cb(e));
       }
   });
-  observer.observe(document.getElementById("root"), {
+  observer.observe(document.body, {
     subtree: true,
     childList: true,
     attributes: true
@@ -326,6 +326,7 @@
   var message_oneline = "message-oneline";
   var welcome_tip = "welcome-tip";
   var menu_text = "menu-text";
+  var setting_item = "setting-item";
   var guild_invite_modal = "guild-invite-modal";
   var modal_title = "modal-title";
   var share_tips = "share-tips";
@@ -342,6 +343,7 @@
     message_oneline,
     welcome_tip,
     menu_text,
+    setting_item,
     guild_invite_modal,
     modal_title,
     share_tips,
@@ -371,11 +373,10 @@
 
   // src/en_translate/dom/messageTime.ts
   var messageTime_default = () => patcher_default.observe(`.${CLASS_NAMES_default.msg_time}`, (elem) => {
-    debugger;
     if (elem.textContent?.startsWith("\u4ECA\u5929 \u51CC\u6668"))
       elem.innerHTML = `Early this morning at ${elem.textContent.split(" ").slice(2)}`;
     else if (elem.textContent && !elem.textContent.includes("at")) {
-      const replaced = elem.textContent.replaceAll("\u4E0A\u5348", "morning").replaceAll("\u4E2D\u5348", "midday").replaceAll(" \u51CC\u6668", "early morning").replaceAll("\u4E0B\u5348", "afternoon").replaceAll("\u4ECA\u5929", "This").replaceAll("\u6628\u5929", "Yesterday").replaceAll("\u661F\u671F\u56DB", "Thursday").replaceAll("\u661F\u671F\u4E09", "Wednesday").replaceAll(/(\d{4})年(\d{2})月(\d{2})日/g, "$1-$2-$3 in the ");
+      const replaced = elem.textContent.replaceAll(/(\d{4})年(\d{2})月(\d{2})日 .*? /g, "$1-$2-$3 ").replaceAll("\u4E0A\u5348", "morning").replaceAll("\u4E2D\u5348", "afternoon").replaceAll("\u51CC\u6668", "morning").replaceAll("\u4E0B\u5348", "afternoon").replaceAll("\u4ECA\u5929", "This").replaceAll(/昨天 .*? /g, "Yesterday ").replaceAll(/星期四 .*? /g, "Thursday ").replaceAll(/星期三 .*? /g, "Wednesday ");
       const part1 = replaced.split(" ").slice(0, -1).join(" ");
       const part2 = _.last(replaced.split(" "));
       elem.innerHTML = `${part1} at ${part2}`;
@@ -390,13 +391,205 @@
       bar.lastChild.textContent = "Jump to present";
   });
 
+  // src/en_translate/dom/nowFriends.ts
+  var nowFriends_default = () => patcher_default.observe(`.${CLASS_NAMES_default.message_oneline}`, (elem) => {
+    if (!elem.lastChild?.textContent?.startsWith("\u4F60\u4E0E"))
+      return;
+    const friendName = utils_default.reactFiberWalker(utils_default.getFiber(elem), "currentChat", true)?.pendingProps.currentChat.target_info.nickname;
+    elem.lastChild.textContent = `You and ${friendName} are now friends.`;
+  });
+
+  // src/en_translate/dom/pmWelcomeTips.ts
+  var pmWelcomeTips_default = () => patcher_default.observe(`.${CLASS_NAMES_default.welcome_tip}`, (tip) => {
+    if (tip.textContent && !utils_default.startsNotAscii(tip.textContent))
+      return;
+    if (tip.textContent?.startsWith("\u8FD9\u91CC\u662F\u4F60\u4E0E")) {
+      const userName = utils_default.reactFiberWalker(utils_default.getFiber(tip), "currentChat", true)?.pendingProps.currentChat.target_info.nickname;
+      tip.textContent = `This is the beginning of your PMs with @${userName}.`;
+    } else if (tip.textContent?.startsWith("\u6B22\u8FCE\u6765\u5230")) {
+      tip.firstChild.textContent = "This is the beginning of #";
+      tip.removeChild(tip.childNodes[2]);
+      tip.childNodes[2].textContent = ". ";
+      tip.lastChild.textContent = "You are witnessing history.";
+    }
+  });
+
+  // src/en_translate/dom/TOOLTIPS.json
+  var \u9891\u9053\u514D\u6253\u6270 = "Mute Channel";
+  var \u53D6\u6D88\u9891\u9053\u514D\u6253\u6270 = "Unmute Channel";
+  var \u7F6E\u9876 = "Pins";
+  var \u7528\u6237\u5217\u8868 = "Member List";
+  var \u641C\u7D22 = "Search";
+  var \u7528\u6237\u8BBE\u7F6E = "User Settings";
+  var \u670D\u52A1\u5668\u521B\u5EFA\u8005 = "Server Owner";
+  var \u4E0A\u4F20 = "Upload";
+  var \u5C55\u5F00\u8F93\u5165\u680F = "Expand Chatbar";
+  var \u8BED\u97F3\u8F93\u5165\u6A21\u5F0F = "Voice Mode";
+  var \u8BED\u97F3\u8BBE\u7F6E = "Voice Settings";
+  var \u8868\u60C5 = "Emojis";
+  var \u6DFB\u52A0\u56DE\u5E94 = "Add Response";
+  var \u7F16\u8F91\u6D88\u606F = "Edit";
+  var \u56DE\u590D = "Reply";
+  var \u66F4\u591A = "More";
+  var \u89E3\u9501\u6A2A\u5E45 = "Unlock banners";
+  var \u521B\u5EFA\u65B0\u9891\u9053 = "New Channel";
+  var \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053 = "Double click to join";
+  var \u521B\u5EFA\u9080\u8BF7 = "Invite people";
+  var \u7F16\u8F91\u9891\u9053 = "Edit Channel";
+  var \u6DFB\u52A0\u670D\u52A1\u5668 = "Add Server";
+  var \u53D1\u73B0\u670D\u52A1\u5668 = "Explore Servers";
+  var \u4E0B\u8F7D\u5BA2\u6237\u7AEF = "Download Apps";
+  var \u6211\u7684\u4E3B\u9875 = "Home";
+  var \u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929 = "Name change allowed every 90 days<br />BUFF users can change name every 10 days";
+  var REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305 = "Next level in $1 boosts";
+  var \u590D\u5236\u7528\u6237\u540D = "Copy Username";
+  var \u590D\u5236\u6210\u529F = "Copied!";
+  var \u5B98\u65B9\u8BA4\u8BC1 = "Verified";
+  var \u5408\u4F5C\u4F19\u4F34 = "Partnered";
+  var TOOLTIPS_default = {
+    \u9891\u9053\u514D\u6253\u6270,
+    \u53D6\u6D88\u9891\u9053\u514D\u6253\u6270,
+    \u7F6E\u9876,
+    \u7528\u6237\u5217\u8868,
+    \u641C\u7D22,
+    \u7528\u6237\u8BBE\u7F6E,
+    \u670D\u52A1\u5668\u521B\u5EFA\u8005,
+    \u4E0A\u4F20,
+    \u5C55\u5F00\u8F93\u5165\u680F,
+    \u8BED\u97F3\u8F93\u5165\u6A21\u5F0F,
+    \u8BED\u97F3\u8BBE\u7F6E,
+    \u8868\u60C5,
+    \u6DFB\u52A0\u56DE\u5E94,
+    \u7F16\u8F91\u6D88\u606F,
+    \u56DE\u590D,
+    \u66F4\u591A,
+    \u89E3\u9501\u6A2A\u5E45,
+    \u521B\u5EFA\u65B0\u9891\u9053,
+    \u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053,
+    \u521B\u5EFA\u9080\u8BF7,
+    \u7F16\u8F91\u9891\u9053,
+    \u6DFB\u52A0\u670D\u52A1\u5668,
+    \u53D1\u73B0\u670D\u52A1\u5668,
+    \u4E0B\u8F7D\u5BA2\u6237\u7AEF,
+    \u6211\u7684\u4E3B\u9875,
+    "\u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929<br />BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929": \u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929,
+    "REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700(\\d+)\u4E2A\u52A9\u529B\u5305": REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305,
+    \u590D\u5236\u7528\u6237\u540D,
+    \u590D\u5236\u6210\u529F,
+    \u5B98\u65B9\u8BA4\u8BC1,
+    \u5408\u4F5C\u4F19\u4F34
+  };
+
+  // src/en_translate/dom/tooltips.ts
+  var simpleTooltips = {};
+  var regexTooltips = [];
+  for (const key in TOOLTIPS_default) {
+    const replacement = TOOLTIPS_default[key];
+    if (!key.startsWith("REGEX_"))
+      simpleTooltips[key] = replacement;
+    else
+      regexTooltips.push([new RegExp(key.slice(6), "g"), replacement]);
+  }
+  var matchTooltip = (tip) => {
+    if (simpleTooltips[tip])
+      return simpleTooltips[tip];
+    for (const [match, replacement] of regexTooltips)
+      if (tip.match(match)?.[0] === tip)
+        return tip.replaceAll(match, replacement);
+  };
+  var tooltips_default = () => patcher_default.observe("[data-tip]", (elem) => {
+    if (elem.dataset.tipEN)
+      return;
+    elem.dataset.tipEN = "0";
+    const tip = matchTooltip(elem.dataset.tip);
+    if (tip)
+      elem.dataset.tip = tip;
+  });
+
+  // src/en_translate/dom/MENU_TEXTS.json
+  var \u670D\u52A1\u5668\u52A9\u529B = "Server Boost";
+  var \u9080\u8BF7\u5176\u4ED6\u4EBA = "Invite People";
+  var \u670D\u52A1\u5668\u8BBE\u7F6E = "Server Settings";
+  var \u521B\u5EFA\u65B0\u9891\u90532 = "Create Channel";
+  var \u521B\u5EFA\u65B0\u5206\u7EC4 = "Create Group";
+  var \u901A\u77E5\u8BBE\u5B9A = "Notification Settings";
+  var \u9690\u79C1\u8BBE\u7F6E = "Privacy Settings";
+  var \u4FEE\u6539\u672C\u670D\u52A1\u5668\u6635\u79F0 = "Change Nickname";
+  var \u9690\u85CF\u514D\u6253\u6270\u9891\u9053 = "Hide Muted";
+  var \u7F16\u8F91\u6D88\u606F2 = "Edit";
+  var \u56DE\u590D2 = "Reply";
+  var \u7F6E\u98762 = "Pin";
+  var \u590D\u5236\u6D88\u606F = "Copy";
+  var \u5220\u9664\u6D88\u606F = "Delete";
+  var MENU_TEXTS_default = {
+    \u670D\u52A1\u5668\u52A9\u529B,
+    \u9080\u8BF7\u5176\u4ED6\u4EBA,
+    \u670D\u52A1\u5668\u8BBE\u7F6E,
+    \u521B\u5EFA\u65B0\u9891\u9053: \u521B\u5EFA\u65B0\u9891\u90532,
+    \u521B\u5EFA\u65B0\u5206\u7EC4,
+    \u901A\u77E5\u8BBE\u5B9A,
+    \u9690\u79C1\u8BBE\u7F6E,
+    \u4FEE\u6539\u672C\u670D\u52A1\u5668\u6635\u79F0,
+    \u9690\u85CF\u514D\u6253\u6270\u9891\u9053,
+    \u7F16\u8F91\u6D88\u606F: \u7F16\u8F91\u6D88\u606F2,
+    \u56DE\u590D: \u56DE\u590D2,
+    \u7F6E\u9876: \u7F6E\u98762,
+    \u590D\u5236\u6D88\u606F,
+    \u5220\u9664\u6D88\u606F
+  };
+
+  // src/en_translate/dom/menuText.ts
+  var menuText_default = () => patcher_default.observe(`.${CLASS_NAMES_default.menu_text},.${CLASS_NAMES_default.setting_item}`, (menuItem) => {
+    if (menuItem.firstElementChild) {
+      const replacement = MENU_TEXTS_default[menuItem.firstElementChild.textContent];
+      if (replacement)
+        menuItem.firstElementChild.textContent = replacement;
+    } else {
+      const replacement = MENU_TEXTS_default[menuItem.textContent];
+      if (replacement)
+        menuItem.textContent = replacement;
+    }
+  });
+
+  // src/en_translate/dom/inviteModal.ts
+  var inviteModal_default = () => patcher_default.observe(`.${CLASS_NAMES_default.guild_invite_modal}`, (modal) => {
+    const modalTitle = modal.getElementsByClassName(CLASS_NAMES_default.modal_title)[0];
+    if (utils_default.startsNotAscii(modalTitle.firstChild?.textContent)) {
+      const guildInfo = utils_default.reactFiberWalker(utils_default.getFiber(modal), "guildInfo", true)?.pendingProps.guildInfo;
+      modalTitle.firstChild.textContent = `Invite users to join ${guildInfo.name}`;
+    }
+    modal.getElementsByClassName(CLASS_NAMES_default.share_tips)[0].innerHTML = "Share this link, your friends can click to join";
+    const inviteSetting = modal.getElementsByClassName(CLASS_NAMES_default.invite_setting)[0];
+    if (inviteSetting.firstChild.childNodes.length === 1) {
+      inviteSetting.firstChild.textContent = "Your invite link will never expire. ";
+    } else {
+      const duration = inviteSetting.firstChild.childNodes[1];
+      duration.textContent = duration.textContent.replaceAll("\u5929", " days").replaceAll("\u5206\u949F", " minutes").replaceAll("1\u4E2A\u5C0F\u65F6", "1 hour").replaceAll("\u4E2A\u5C0F\u65F6", " hours");
+      inviteSetting.firstChild.firstChild.textContent = "Your invite link will expire after ";
+      inviteSetting.firstChild.lastChild.textContent = ".";
+    }
+    inviteSetting.lastChild.textContent = " Edit invite link";
+  });
+
+  // src/en_translate/dom/searchInput.ts
+  var searchInput_default = () => patcher_default.observe(`.${CLASS_NAMES_default.search_input}`, (elem) => {
+    if (elem.firstChild instanceof HTMLInputElement && elem.firstChild.placeholder === "\u641C\u7D22")
+      elem.firstChild.placeholder = "Search";
+  });
+
   // src/en_translate/dom/index.ts
   var dom_default = () => {
     const unpatches = [
       chatbarPlaceholders_default(),
       memberListGroup_default(),
       messageTime_default(),
-      scrollToBottom_default()
+      scrollToBottom_default(),
+      nowFriends_default(),
+      pmWelcomeTips_default(),
+      tooltips_default(),
+      menuText_default(),
+      inviteModal_default(),
+      searchInput_default()
     ];
     return () => unpatches.forEach((p) => p());
   };
