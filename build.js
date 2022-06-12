@@ -40,11 +40,18 @@
   var webpack = {
     wpRequire: wpRequire_default,
     modules,
+    getModule: (m) => {
+      for (const k in modules)
+        if (modules[k].exports?.default === m || modules[k].exports === m)
+          return modules[k];
+    },
     find: (filter) => findAll(filter)[0],
     findAll,
     findByPropsAll: (...props) => findAll((m) => props.every((p) => m[p] !== void 0)),
     findByProps: (...props) => webpack.findByPropsAll(...props)[0],
-    findByNestedPropsAll: (...props) => findAll((m) => props.every((p) => Object.keys(m).some((k) => m[k]?.[p] !== void 0)))
+    findByNestedPropsAll: (...props) => findAll((m) => props.every((p) => Object.keys(m).some((k) => m[k]?.[p] !== void 0))),
+    findByCodeAll: (code) => Object.entries(wpRequire_default.m).filter(([, m]) => m.toString().match(code)).map(([id]) => wpRequire_default.c[id]?.exports).filter((m) => m),
+    findByCode: (code) => webpack.findByCodeAll(code)[0]
   };
   var webpack_default = webpack;
 
@@ -53,7 +60,11 @@
   var EN_APP_TITLE = "KAIHEI LA";
   var common_default = {
     React: webpack_default.findByProps("createElement"),
-    lodash: _,
+    ReactDOM: webpack_default.findByProps("hydrate"),
+    ReactCSS: webpack_default.findByProps("ReactCSS"),
+    SdpTransform: webpack_default.findByProps("parseSimulcastStreamList"),
+    ReactTooltip: webpack_default.find((m) => m.a?.displayName === "ReactTooltip")?.a,
+    lodash: webpack_default.findByProps("curryRight") ?? _,
     constantsCN: bothConstants.find((c) => c.account_kaiheilatitle !== EN_APP_TITLE),
     constantsEN: bothConstants.find((c) => c.account_kaiheilatitle === EN_APP_TITLE)
   };
@@ -3778,6 +3789,98 @@
     }
   });
 
+  // src/en_translate/dom/TOOLTIPS.json
+  var __\u9891\u9053\u514D\u6253\u6270 = "Mute Channel";
+  var __\u53D6\u6D88\u9891\u9053\u514D\u6253\u6270 = "Unmute Channel";
+  var \u7F6E\u9876 = "Pins";
+  var __\u7528\u6237\u5217\u8868 = "Member List";
+  var __\u641C\u7D22 = "Search";
+  var __\u7528\u6237\u8BBE\u7F6E = "User Settings";
+  var __\u670D\u52A1\u5668\u521B\u5EFA\u8005 = "Server Owner";
+  var __\u4E0A\u4F20 = "Upload";
+  var __\u5C55\u5F00\u8F93\u5165\u680F = "Expand Chatbar";
+  var __\u8BED\u97F3\u8F93\u5165\u6A21\u5F0F = "Voice Mode";
+  var __\u8BED\u97F3\u8BBE\u7F6E = "Voice Settings";
+  var __\u8868\u60C5 = "Emojis";
+  var __\u6DFB\u52A0\u56DE\u5E94 = "Add Response";
+  var __\u7F16\u8F91\u6D88\u606F = "Edit";
+  var __\u56DE\u590D = "Reply";
+  var \u66F4\u591A = "More";
+  var __\u89E3\u9501\u6A2A\u5E45 = "Unlock banners";
+  var __\u521B\u5EFA\u65B0\u9891\u9053 = "New Channel";
+  var __\u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053 = "Double click to join";
+  var __\u521B\u5EFA\u9080\u8BF7 = "Invite people";
+  var __\u7F16\u8F91\u9891\u9053 = "Edit Channel";
+  var \u6DFB\u52A0\u670D\u52A1\u5668 = "Add Server";
+  var \u53D1\u73B0\u670D\u52A1\u5668 = "Explore Servers";
+  var \u4E0B\u8F7D\u5BA2\u6237\u7AEF = "Download Apps";
+  var __\u6211\u7684\u4E3B\u9875 = "Home";
+  var __\u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929 = "Name change allowed every 90 days<br />BUFF users can change name every 10 days";
+  var REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305 = "Next level in $1 boosts";
+  var __\u590D\u5236\u7528\u6237\u540D = "Copy Username";
+  var __\u590D\u5236\u6210\u529F = "Copied!";
+  var __\u5B98\u65B9\u8BA4\u8BC1 = "Verified";
+  var __\u5408\u4F5C\u4F19\u4F34 = "Partnered";
+  var TOOLTIPS_default = {
+    "//\u9891\u9053\u514D\u6253\u6270": __\u9891\u9053\u514D\u6253\u6270,
+    "//\u53D6\u6D88\u9891\u9053\u514D\u6253\u6270": __\u53D6\u6D88\u9891\u9053\u514D\u6253\u6270,
+    \u7F6E\u9876,
+    "//\u7528\u6237\u5217\u8868": __\u7528\u6237\u5217\u8868,
+    "//\u641C\u7D22": __\u641C\u7D22,
+    "//\u7528\u6237\u8BBE\u7F6E": __\u7528\u6237\u8BBE\u7F6E,
+    "//\u670D\u52A1\u5668\u521B\u5EFA\u8005": __\u670D\u52A1\u5668\u521B\u5EFA\u8005,
+    "//\u4E0A\u4F20": __\u4E0A\u4F20,
+    "//\u5C55\u5F00\u8F93\u5165\u680F": __\u5C55\u5F00\u8F93\u5165\u680F,
+    "//\u8BED\u97F3\u8F93\u5165\u6A21\u5F0F": __\u8BED\u97F3\u8F93\u5165\u6A21\u5F0F,
+    "//\u8BED\u97F3\u8BBE\u7F6E": __\u8BED\u97F3\u8BBE\u7F6E,
+    "//\u8868\u60C5": __\u8868\u60C5,
+    "//\u6DFB\u52A0\u56DE\u5E94": __\u6DFB\u52A0\u56DE\u5E94,
+    "//\u7F16\u8F91\u6D88\u606F": __\u7F16\u8F91\u6D88\u606F,
+    "//\u56DE\u590D": __\u56DE\u590D,
+    \u66F4\u591A,
+    "//\u89E3\u9501\u6A2A\u5E45": __\u89E3\u9501\u6A2A\u5E45,
+    "//\u521B\u5EFA\u65B0\u9891\u9053": __\u521B\u5EFA\u65B0\u9891\u9053,
+    "//\u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053": __\u518D\u6B21\u70B9\u51FB\u8FDB\u5165\u9891\u9053,
+    "//\u521B\u5EFA\u9080\u8BF7": __\u521B\u5EFA\u9080\u8BF7,
+    "//\u7F16\u8F91\u9891\u9053": __\u7F16\u8F91\u9891\u9053,
+    \u6DFB\u52A0\u670D\u52A1\u5668,
+    \u53D1\u73B0\u670D\u52A1\u5668,
+    \u4E0B\u8F7D\u5BA2\u6237\u7AEF,
+    "//\u6211\u7684\u4E3B\u9875": __\u6211\u7684\u4E3B\u9875,
+    "//\u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929<br />BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929": __\u666E\u901A\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969490\u5929_br___BUFF\u7528\u6237\u6BCF\u6B21\u4FEE\u6539\u7528\u6237\u540D\u9700\u95F4\u969410\u5929,
+    "REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700(\\d+)\u4E2A\u52A9\u529B\u5305": REGEX_\u8DDD\u79BB\u4E0B\u4E00\u4E2A\u7B49\u7EA7\u8FD8\u9700__d__\u4E2A\u52A9\u529B\u5305,
+    "//\u590D\u5236\u7528\u6237\u540D": __\u590D\u5236\u7528\u6237\u540D,
+    "//\u590D\u5236\u6210\u529F": __\u590D\u5236\u6210\u529F,
+    "//\u5B98\u65B9\u8BA4\u8BC1": __\u5B98\u65B9\u8BA4\u8BC1,
+    "//\u5408\u4F5C\u4F19\u4F34": __\u5408\u4F5C\u4F19\u4F34
+  };
+
+  // src/en_translate/dom/tooltips.ts
+  var simpleTooltips = {};
+  var regexTooltips = [];
+  for (const key in TOOLTIPS_default) {
+    const replacement = TOOLTIPS_default[key];
+    if (!key.startsWith("REGEX_"))
+      simpleTooltips[key] = replacement;
+    else
+      regexTooltips.push([new RegExp(key.slice(6), "g"), replacement]);
+  }
+  var matchTooltip = (tip) => {
+    if (simpleTooltips[tip])
+      return simpleTooltips[tip];
+    for (const [match, replacement] of regexTooltips)
+      if (tip.match(match)?.[0] === tip)
+        return tip.replaceAll(match, replacement);
+  };
+  var tooltips_default = () => patcher_default.observe("[data-tip]", (elem) => {
+    if (elem.dataset.tipEN)
+      return;
+    elem.dataset.tipEN = "0";
+    const tip = matchTooltip(elem.dataset.tip);
+    if (tip)
+      elem.dataset.tip = tip;
+  });
+
   // src/en_translate/dom/REPLACES.json
   var _menu_text___setting_item = {
     \u9080\u8BF7\u5176\u4ED6\u4EBA: "Invite",
@@ -3789,7 +3892,8 @@
     \u76F4\u5230\u6211\u518D\u6B21\u5F00\u542F: "until I unmute",
     \u590D\u5236ID: "Copy ID",
     \u7F6E\u9876: "Pin",
-    \u5220\u9664\u597D\u53CB: "Unfriend"
+    \u5220\u9664\u597D\u53CB: "Unfriend",
+    \u4E3E\u62A5: "Report"
   };
   var _button_text = {
     \u590D\u5236: "Copy",
@@ -3877,6 +3981,9 @@
   var _sub_title = {
     "\u5F00\u53D1\u8005\u5728\u6B64\u6A21\u5F0F\u4E0B\u53EF\u66F4\u4E3A\u4FBF\u6377\u5730\u7F16\u5199\u3001\u7BA1\u7406\u673A\u5668\u4EBA\u3002": "In this mode, you can write bots more easily."
   };
+  var _auth_tips____nth_child_2_ = {
+    "\u5F53\u524D\u6D4F\u89C8\u5668\u53EF\u80FD\u5B58\u5728\u90E8\u5206\u529F\u80FD\u4F7F\u7528\u4E0D\u6B63\u5E38\uFF0C\u5EFA\u8BAE\u4F7F\u7528\u8C37\u6B4C\u6216\u5176\u5B83\u6D4F\u89C8\u5668\u7684\u6700\u65B0\u7248\u672C\uFF0C\u4E5F\u53EF\u4EE5\u4E0B\u8F7D\u5BA2\u6237\u7AEF\u4F53\u9A8C\u66F4\u591A\u529F\u80FD\u3002": "Your browser may not support all features, please use the latest version of Chrome or other."
+  };
   var REPLACES_default = {
     ".menu-text, .setting-item": _menu_text___setting_item,
     ".button-text": _button_text,
@@ -3892,7 +3999,8 @@
     ".setting-model-right-title": _setting_model_right_title,
     ".setting-model-title-tips": _setting_model_title_tips,
     ".block-selector-item .text": _block_selector_item__text,
-    ".sub-title": _sub_title
+    ".sub-title": _sub_title,
+    ".auth-tips > :nth-child(2)": _auth_tips____nth_child_2_
   };
 
   // src/en_translate/dom/textReplacements.ts
@@ -3909,6 +4017,7 @@
   var dom_default = () => {
     const unpatches = [
       messageTime_default(),
+      tooltips_default(),
       textReplacements_default()
     ];
     return () => unpatches.forEach((p) => p());
