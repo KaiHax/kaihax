@@ -64,6 +64,13 @@
     ReactCSS: webpack_default.findByProps("ReactCSS"),
     SdpTransform: webpack_default.findByProps("parseSimulcastStreamList"),
     ReactTooltip: webpack_default.find((m) => m.a?.displayName === "ReactTooltip")?.a,
+    MomentJS: webpack_default.findByProps("relativeTimeRounding"),
+    AntV: webpack_default.findByProps("G2"),
+    highlightjs: webpack_default.findByProps("highlightElement"),
+    htmlParser2: webpack_default.findByProps("htmlparser2"),
+    Ledap: webpack_default.findByProps("LedapVue"),
+    pinyin: webpack_default.findByProps("STYLE_FIRST_LETTER"),
+    pako: webpack_default.findByProps("deflateRaw"),
     lodash: webpack_default.findByProps("curryRight") ?? _,
     constantsCN: bothConstants.find((c) => c.account_kaiheilatitle !== EN_APP_TITLE),
     constantsEN: bothConstants.find((c) => c.account_kaiheilatitle === EN_APP_TITLE)
