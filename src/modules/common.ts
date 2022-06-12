@@ -10,6 +10,13 @@ export default {
   ReactCSS: webpack.findByProps("ReactCSS"),
   SdpTransform: webpack.findByProps("parseSimulcastStreamList"),
   ReactTooltip: webpack.find(m => m.a?.displayName === "ReactTooltip")?.a,
+  MomentJS: webpack.findByProps("relativeTimeRounding"),
+  AntV: webpack.findByProps("G2"),
+  highlightjs: webpack.findByProps("highlightElement"),
+  htmlParser2: webpack.findByProps("htmlparser2"),
+  Ledap: webpack.findByProps("LedapVue"),
+  pinyin: webpack.findByProps("STYLE_FIRST_LETTER"),
+  pako: webpack.findByProps("deflateRaw"),
   // @ts-expect-error
   lodash: webpack.findByProps("curryRight") ?? _,
 
