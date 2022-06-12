@@ -19,7 +19,7 @@ export default () => {
     //scrollToBottom(),
     //nowFriends(),
     //pmWelcomeTips(),
-    //tooltips(),
+    tooltips(),
     //inviteModal(),
     //searchInput(),
     //fraud(),
